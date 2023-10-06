@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:silme/utils/app_sizes.dart';
 
 /// Application drawer
 class AppDrawer extends ConsumerWidget {
@@ -18,9 +19,27 @@ class AppDrawer extends ConsumerWidget {
         children: [
           DrawerHeader(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.inversePrimary,
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
             ),
-            child: Text('TODO: Drawer Header'),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const CircleAvatar(
+                  radius: 30,
+                  backgroundImage: AssetImage('assets/images/wlop_cat.png'),
+                ),
+                gapH12,
+                Text(
+                  'Bag Calculator',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                gapH4,
+                Text(
+                  'Silme Bag Industries Ltd.',
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+              ],
+            ),
           ),
           ListTile(
             title: const Text('Settings'),

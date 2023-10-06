@@ -22,7 +22,7 @@ class Styles {
   ThemeData setWhiteTheme() {
     return ThemeData(
       useMaterial3: true,
-      colorSchemeSeed: Colors.white,
+      colorSchemeSeed: Colors.green,
       textTheme: textTheme(),
     );
   }

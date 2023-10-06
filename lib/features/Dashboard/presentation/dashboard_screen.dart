@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:silme/features/dashboard/presentation/component/app_drawer.dart';
-import 'package:silme/features/dashboard/provider/counter_provider.dart';
+import 'package:silme/utils/app_sizes.dart';
 
 /// Landing Page of the application
 class DashboardScreen extends ConsumerWidget {
@@ -10,34 +11,91 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final counter = ref.watch(counterProvider);
+    final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Silme'),
+      body: Stack(
+        children: [
+          SizedBox(
+            height: 220,
+            child: Image.asset(
+              'assets/images/round_shape.png',
+              fit: BoxFit.cover,
+              width: double.infinity,
+            ),
+          ),
+          Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              title: const Text('Silme'),
+            ),
+            drawer: const AppDrawer(),
+            body: Container(
+              width: size.width,
+              padding: const EdgeInsets.only(top: 134),
+              child: Column(
+                children: <Widget>[
+                  welcomeMessage(context),
+                  gapH32,
+                  differentBagTypes(context, size),
+                ],
+              ),
+            ),
+          )
+        ],
       ),
-      drawer: const AppDrawer(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              counter.toString(),
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+    );
+  }
+
+  /// Different bag types
+  Column differentBagTypes(BuildContext context, Size size) {
+    return Column(
+      children: [
+        SizedBox(
+          width: size.width * 0.7,
+          child: FilledButton(
+            onPressed: () {
+              context.go('/nonwovan');
+            },
+            child: const Text('Non-woven Bag'),
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          ref.read(counterProvider.notifier).increment();
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+        gapH8,
+        SizedBox(
+          width: size.width * 0.7,
+          child: FilledButton(
+            onPressed: () {
+              context.go('/jute');
+            },
+            child: const Text('Jute Bag'),
+          ),
+        ),
+        gapH8,
+        SizedBox(
+          width: size.width * 0.7,
+          child: FilledButton(
+            onPressed: () {
+              context.go('/cotton');
+            },
+            child: const Text('Cotton Bag'),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Welcome message
+  Column welcomeMessage(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          'Welcome on board!',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        const Text(
+          'Let’s help you meet up your task',
+        ),
+      ],
     );
   }
 }
