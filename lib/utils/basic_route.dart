@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:silme/features/Dashboard/presentation/dashboard_page.dart';
-import 'package:silme/features/Settings/settings_page.dart';
+import 'package:silme/features/dashboard/presentation/dashboard_screen.dart';
+import 'package:silme/features/settings/presentation/settings_screen.dart';
 
 /// The route configuration.
 GoRouter getGoRouter() {
@@ -13,21 +13,15 @@ GoRouter getGoRouter() {
       GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
-          return DashboardPage();
+          return DashboardScreen();
         },
         routes: <RouteBase>[
           GoRoute(
             path: 'settings',
             builder: (BuildContext context, GoRouterState state) {
-              return SettingsPage();
+              return SettingsScreen();
             },
           ),
-          // GoRoute(
-          //   path: 'login',
-          //   builder: (BuildContext context, GoRouterState state) {
-          //     return const LoginPage();
-          //   },
-          // ),
         ],
       ),
     ],

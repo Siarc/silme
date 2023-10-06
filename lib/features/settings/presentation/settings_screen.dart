@@ -4,9 +4,9 @@ import 'package:silme/utils/app_sizes.dart';
 import 'package:silme/utils/styles/theme_provider.dart';
 
 /// Landing Page of the application
-class SettingsPage extends ConsumerWidget {
+class SettingsScreen extends ConsumerWidget {
   /// Default Constructor
-  const SettingsPage({super.key});
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

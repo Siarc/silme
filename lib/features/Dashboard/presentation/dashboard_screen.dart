@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:silme/features/Dashboard/presentation/component/app_drawer.dart';
-import 'package:silme/features/Dashboard/provider/counter_provider.dart';
+import 'package:silme/features/dashboard/presentation/component/app_drawer.dart';
+import 'package:silme/features/dashboard/provider/counter_provider.dart';
 
 /// Landing Page of the application
-class DashboardPage extends ConsumerWidget {
+class DashboardScreen extends ConsumerWidget {
   /// Default Constructor
-  const DashboardPage({super.key});
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
