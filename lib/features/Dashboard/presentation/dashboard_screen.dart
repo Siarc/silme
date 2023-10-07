@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:silme/common/custom_filled_button.dart';
 import 'package:silme/features/dashboard/presentation/component/app_drawer.dart';
 import 'package:silme/utils/app_sizes.dart';
 
@@ -53,31 +54,31 @@ class DashboardScreen extends ConsumerWidget {
       children: [
         SizedBox(
           width: size.width * 0.7,
-          child: FilledButton(
+          child: CustomFilledButton(
+            label: 'Non-woven Bag',
             onPressed: () {
               context.go('/nonwovan');
             },
-            child: const Text('Non-woven Bag'),
           ),
         ),
         gapH8,
         SizedBox(
           width: size.width * 0.7,
-          child: FilledButton(
+          child: CustomFilledButton(
+            label: 'Jute Bag',
             onPressed: () {
               context.go('/jute');
             },
-            child: const Text('Jute Bag'),
           ),
         ),
         gapH8,
         SizedBox(
           width: size.width * 0.7,
-          child: FilledButton(
+          child: CustomFilledButton(
+            label: 'Cotton Bag',
             onPressed: () {
               context.go('/cotton');
             },
-            child: const Text('Cotton Bag'),
           ),
         ),
       ],

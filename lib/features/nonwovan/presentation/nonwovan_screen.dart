@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:silme/common/custom_outlined_text_form_field.dart';
 import 'package:silme/features/nonwovan/presentation/component/cotton_type_dropdown.dart';
 import 'package:silme/features/nonwovan/presentation/component/print_type_dropdown.dart';
 import 'package:silme/features/nonwovan/provider/delivery_type_provider.dart';
@@ -86,17 +87,8 @@ class NonwovanScreen extends ConsumerWidget {
     return Row(
       children: [
         Expanded(
-          child: TextField(
-            decoration: const InputDecoration(
-              labelText: 'GSM',
-              border: OutlineInputBorder(),
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 10,
-              ),
-            ),
-            onChanged: (value) {
-              // Do something with the value
-            },
+          child: CustomOutlinedTextFormField(
+            label: 'GSM',
           ),
         ),
         gapW8,
@@ -108,18 +100,9 @@ class NonwovanScreen extends ConsumerWidget {
   }
 
   /// Fabric Price
-  TextField fabricPrice() {
-    return TextField(
-      decoration: const InputDecoration(
-        labelText: 'Fabric Price',
-        border: OutlineInputBorder(),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 10,
-        ),
-      ),
-      onChanged: (value) {
-        // Do something with the value
-      },
+  Widget fabricPrice() {
+    return CustomOutlinedTextFormField(
+      label: 'Fabric Price',
     );
   }
 
@@ -128,32 +111,14 @@ class NonwovanScreen extends ConsumerWidget {
     return Row(
       children: [
         Expanded(
-          child: TextField(
-            decoration: const InputDecoration(
-              labelText: 'Gusset',
-              border: OutlineInputBorder(),
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 10,
-              ),
-            ),
-            onChanged: (value) {
-              // Do something with the value
-            },
+          child: CustomOutlinedTextFormField(
+            label: 'Gusset',
           ),
         ),
         gapW8,
         Expanded(
-          child: TextField(
-            decoration: const InputDecoration(
-              labelText: 'Print Color',
-              border: OutlineInputBorder(),
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 10,
-              ),
-            ),
-            onChanged: (value) {
-              // Do something with the value
-            },
+          child: CustomOutlinedTextFormField(
+            label: 'Print Color',
           ),
         ),
       ],
@@ -165,32 +130,14 @@ class NonwovanScreen extends ConsumerWidget {
     return Row(
       children: [
         Expanded(
-          child: TextField(
-            decoration: const InputDecoration(
-              labelText: 'Height',
-              border: OutlineInputBorder(),
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 10,
-              ),
-            ),
-            onChanged: (value) {
-              // Do something with the value
-            },
+          child: CustomOutlinedTextFormField(
+            label: 'Height',
           ),
         ),
         gapW8,
         Expanded(
-          child: TextField(
-            decoration: const InputDecoration(
-              labelText: 'Width',
-              border: OutlineInputBorder(),
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 10,
-              ),
-            ),
-            onChanged: (value) {
-              // Do something with the value
-            },
+          child: CustomOutlinedTextFormField(
+            label: 'Width',
           ),
         ),
       ],
@@ -297,17 +244,8 @@ class NonwovanScreen extends ConsumerWidget {
 
   /// Bag Quantity
   Widget bagQuantity() {
-    return TextField(
-      decoration: const InputDecoration(
-        labelText: 'Quantity',
-        border: OutlineInputBorder(),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 10,
-        ),
-      ),
-      onChanged: (value) {
-        // Do something with the value
-      },
+    return CustomOutlinedTextFormField(
+      label: 'Quantity',
     );
   }
 
