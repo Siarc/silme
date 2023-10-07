@@ -14,6 +14,7 @@ class CustomOutlinedTextFormField extends ConsumerWidget {
     this.controller,
     this.onChanged,
     this.validator,
+    this.obscureText = false,
     super.key,
   });
 
@@ -38,6 +39,9 @@ class CustomOutlinedTextFormField extends ConsumerWidget {
   /// Hint Color
   final Color? hintColor;
 
+  /// Obscure Text (Password)
+  final bool obscureText;
+
   /// Hint Text
   final String? hint;
 
@@ -45,11 +49,15 @@ class CustomOutlinedTextFormField extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return TextFormField(
       minLines: lines,
-      maxLines: lines,
+      maxLines: obscureText ? 1 : lines,
       controller: controller,
+      obscureText: obscureText,
       keyboardType: TextInputType.name,
-      style: Theme.of(context).textTheme.bodySmall,
+      style: Theme.of(context).textTheme.titleMedium,
       decoration: InputDecoration(
+        errorStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
+              color: Theme.of(context).colorScheme.error,
+            ),
         labelText: label,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 10,
