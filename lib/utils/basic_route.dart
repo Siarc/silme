@@ -28,7 +28,7 @@ GoRouter getGoRouter() {
           GoRoute(
             path: 'nonwovan',
             builder: (BuildContext context, GoRouterState state) {
-              return const NonWovanScreen();
+              return const NonwovanScreen();
             },
           ),
           GoRoute(

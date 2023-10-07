@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:silme/features/cotton/provider/cotton_type_provider.dart';
+import 'package:silme/features/nonwovan/provider/nonwovan_type_provider.dart';
 
 /// Custom dropdown widget for cotton type bags
 class CottonTypeDropdown extends ConsumerWidget {
@@ -16,7 +16,7 @@ class CottonTypeDropdown extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
-    final selectedItem = ref.watch(cottonTypeProvider);
+    final selectedItem = ref.watch(nonwovanTypeProvider);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -36,7 +36,7 @@ class CottonTypeDropdown extends ConsumerWidget {
         ),
         offset: const Offset(0, 62),
         onSelected: (value) {
-          ref.read(cottonTypeProvider.notifier).setCottonType(value);
+          ref.read(nonwovanTypeProvider.notifier).setCottonType(value);
         },
         itemBuilder: (BuildContext context) {
           return _items.map((String item) {

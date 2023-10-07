@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cotton_type_provider.dart';
+part of 'nonwovan_type_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cottonTypeHash() => r'f7048d94044f77d55eed5c872d6a25b235f22ee8';
+String _$nonwovanTypeHash() => r'a9fb18caf19a9512c0fc715536bfea45107e1783';
 
 /// Selected cotton type bag
 ///
-/// Copied from [CottonType].
-@ProviderFor(CottonType)
-final cottonTypeProvider =
-    AutoDisposeNotifierProvider<CottonType, String>.internal(
-  CottonType.new,
-  name: r'cottonTypeProvider',
+/// Copied from [NonwovanType].
+@ProviderFor(NonwovanType)
+final nonwovanTypeProvider =
+    AutoDisposeNotifierProvider<NonwovanType, String>.internal(
+  NonwovanType.new,
+  name: r'nonwovanTypeProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$cottonTypeHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$nonwovanTypeHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$CottonType = AutoDisposeNotifier<String>;
+typedef _$NonwovanType = AutoDisposeNotifier<String>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

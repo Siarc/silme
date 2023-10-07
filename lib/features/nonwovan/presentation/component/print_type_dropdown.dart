@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:silme/features/cotton/provider/print_type_provider.dart';
+import 'package:silme/features/nonwovan/provider/print_type_provider.dart';
 
 /// Custom dropdown widget for cotton type bags
 class PrintTypeDropdown extends ConsumerWidget {
