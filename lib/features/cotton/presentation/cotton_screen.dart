@@ -7,7 +7,7 @@ import 'package:silme/features/cotton/provider/gusset_print_provider.dart';
 import 'package:silme/features/cotton/provider/zipper_provider.dart';
 import 'package:silme/utils/app_sizes.dart';
 
-///
+/// Returns the column containing the fabric details.
 class CottonScreen extends ConsumerWidget {
   /// Default Constructor
   const CottonScreen({super.key});
@@ -315,7 +315,7 @@ class CottonScreen extends ConsumerWidget {
   Widget bagDeliveryType(WidgetRef ref, BuildContext context) {
     final selectedValue = ref.watch(deliveryTypeProvider);
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
@@ -393,9 +393,10 @@ class CottonScreen extends ConsumerWidget {
     );
   }
 
+  /// Total Price of the bag
   Widget totalPrice(WidgetRef ref, BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
@@ -416,7 +417,7 @@ class CottonScreen extends ConsumerWidget {
             'Total Price',
             style: Theme.of(context).textTheme.titleLarge,
           ),
-          Spacer(),
+          const Spacer(),
           Text(
             '120000',
             style: Theme.of(context).textTheme.titleLarge,
