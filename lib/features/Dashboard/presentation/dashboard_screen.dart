@@ -30,7 +30,7 @@ class DashboardScreen extends ConsumerWidget {
               backgroundColor: Colors.transparent,
               title: const Text('Silme'),
             ),
-            drawer: const AppDrawer(),
+            drawer: AppDrawer(),
             body: Container(
               width: size.width,
               padding: const EdgeInsets.only(top: 134),

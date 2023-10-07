@@ -1,14 +1,23 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:silme/features/Authentication/auth/auth.dart';
 import 'package:silme/utils/app_sizes.dart';
 
 /// Application drawer
 class AppDrawer extends ConsumerWidget {
   /// Default Constructor
-  const AppDrawer({
+  AppDrawer({
     super.key,
   });
+
+  final User? user = Auth().currentUser;
+
+  /// Sign out user
+  Future<void> _signOut(BuildContext context) async {
+    await Auth().signOut();
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -50,9 +59,9 @@ class AppDrawer extends ConsumerWidget {
             },
           ),
           ListTile(
-            title: const Text('Nothing'),
+            title: const Text('Sign out'),
             onTap: () {
-              context.pop();
+              _signOut(context).then((value) => context.pushReplacement('/'));
             },
           ),
         ],
