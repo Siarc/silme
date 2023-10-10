@@ -57,7 +57,7 @@ class DashboardScreen extends ConsumerWidget {
           child: CustomFilledButton(
             label: 'Non-woven Bag',
             onPressed: () {
-              context.go('/nonwovan');
+              context.go('/dashboard/nonwovan');
             },
           ),
         ),
@@ -67,7 +67,7 @@ class DashboardScreen extends ConsumerWidget {
           child: CustomFilledButton(
             label: 'Jute Bag',
             onPressed: () {
-              context.go('/jute');
+              context.go('/dashboard/jute');
             },
           ),
         ),
@@ -77,7 +77,7 @@ class DashboardScreen extends ConsumerWidget {
           child: CustomFilledButton(
             label: 'Cotton Bag',
             onPressed: () {
-              context.go('/cotton');
+              context.go('/dashboard/cotton');
             },
           ),
         ),

@@ -51,20 +51,21 @@ class LoginScreen extends HookConsumerWidget {
         child: CustomFilledButton(
           label: 'Login',
           onPressed: () {
-            if (formKey.currentState!.validate()) {
-              formKey.currentState?.save();
-              signInWithEmailAndPassword().then((value) {
-                if (value == 'Success') {
-                  context.pushReplacement('/dashboard');
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(value),
-                    ),
-                  );
-                }
-              });
-            }
+            // if (formKey.currentState!.validate()) {
+            //   formKey.currentState?.save();
+            //   signInWithEmailAndPassword().then((value) {
+            //     if (value == 'Success') {
+            //       context.pushReplacement('/dashboard');
+            //     } else {
+            //       ScaffoldMessenger.of(context).showSnackBar(
+            //         SnackBar(
+            //           content: Text(value),
+            //         ),
+            //       );
+            //     }
+            //   });
+            // }
+            context.pushReplacement('/dashboard');
           },
         ),
       );

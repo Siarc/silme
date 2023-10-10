@@ -55,13 +55,17 @@ class AppDrawer extends ConsumerWidget {
             onTap: () {
               context
                 ..pop()
-                ..go('/settings');
+                ..go('/dashboard/settings');
             },
           ),
           ListTile(
             title: const Text('Sign out'),
             onTap: () {
-              _signOut(context).then((value) => context.pushReplacement('/'));
+              _signOut(context).then((value) {
+                context
+                  ..pop()
+                  ..go('/');
+              });
             },
           ),
         ],

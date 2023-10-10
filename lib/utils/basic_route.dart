@@ -21,35 +21,36 @@ GoRouter getGoRouter() {
         },
         routes: <RouteBase>[
           GoRoute(
-            path: 'dashboard',
-            builder: (BuildContext context, GoRouterState state) {
-              return const DashboardScreen();
-            },
-          ),
-          GoRoute(
-            path: 'settings',
-            builder: (BuildContext context, GoRouterState state) {
-              return const SettingsScreen();
-            },
-          ),
-          GoRoute(
-            path: 'nonwovan',
-            builder: (BuildContext context, GoRouterState state) {
-              return const NonwovanScreen();
-            },
-          ),
-          GoRoute(
-            path: 'jute',
-            builder: (BuildContext context, GoRouterState state) {
-              return const JuteScreen();
-            },
-          ),
-          GoRoute(
-            path: 'cotton',
-            builder: (BuildContext context, GoRouterState state) {
-              return const CottonScreen();
-            },
-          ),
+              path: 'dashboard',
+              builder: (BuildContext context, GoRouterState state) {
+                return const DashboardScreen();
+              },
+              routes: [
+                GoRoute(
+                  path: 'settings',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return const SettingsScreen();
+                  },
+                ),
+                GoRoute(
+                  path: 'nonwovan',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return const NonwovanScreen();
+                  },
+                ),
+                GoRoute(
+                  path: 'jute',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return const JuteScreen();
+                  },
+                ),
+                GoRoute(
+                  path: 'cotton',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return const CottonScreen();
+                  },
+                ),
+              ]),
         ],
       ),
     ],
