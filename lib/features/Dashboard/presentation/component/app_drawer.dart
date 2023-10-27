@@ -12,6 +12,7 @@ class AppDrawer extends ConsumerWidget {
     super.key,
   });
 
+  /// Current logged in user
   final User? user = Auth().currentUser;
 
   /// Sign out user

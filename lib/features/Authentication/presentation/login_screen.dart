@@ -24,6 +24,7 @@ class LoginScreen extends HookConsumerWidget {
     String? errorMessage = '';
 
     /// Sign in with email and password
+    /// ignore: unused_element
     Future<String> signInWithEmailAndPassword() async {
       try {
         await Auth().signInWithEmailAndPassword(

@@ -41,14 +41,7 @@ class NonwovanScreen extends ConsumerWidget {
                   right: 20,
                 ),
                 width: size.width,
-                child: Column(
-                  children: [
-                    CottonTypeDropdown(),
-                    gapH12,
-                    fabricDetails(ref, context),
-                    gapH8,
-                  ],
-                ),
+                child: fabricDetails(ref, context),
               ),
             ),
           ),
@@ -61,11 +54,13 @@ class NonwovanScreen extends ConsumerWidget {
   Column fabricDetails(WidgetRef ref, BuildContext context) {
     return Column(
       children: [
+        CottonTypeDropdown(),
+        gapH12,
         fabricPrice(),
         gapH8,
         bagSize(),
         gapH8,
-        bagGsmPrintType(),
+        bagPrintType(),
         gapH8,
         bagGussetPrintColor(),
         gapH8,
@@ -77,13 +72,14 @@ class NonwovanScreen extends ConsumerWidget {
         gapH8,
         bagDeliveryType(ref, context),
         gapH12,
-        totalPrice(ref, context),
+        unitPrice(ref, context),
+        gapH8,
       ],
     );
   }
 
   /// Bag GSM and Print Type
-  Row bagGsmPrintType() {
+  Row bagPrintType() {
     return Row(
       children: [
         Expanded(
@@ -332,7 +328,7 @@ class NonwovanScreen extends ConsumerWidget {
   }
 
   /// Total Price of the bag
-  Widget totalPrice(WidgetRef ref, BuildContext context) {
+  Widget unitPrice(WidgetRef ref, BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -352,7 +348,7 @@ class NonwovanScreen extends ConsumerWidget {
       child: Row(
         children: [
           Text(
-            'Total Price',
+            'Unit Price',
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const Spacer(),

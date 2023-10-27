@@ -2,11 +2,11 @@
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'nonwovan_type_provider.g.dart';
+part 'nonwovan_bag_type_provider.g.dart';
 
 /// Selected cotton type bag
 @riverpod
-class NonwovanType extends _$NonwovanType {
+class NonwovanBagType extends _$NonwovanBagType {
   @override
   String build() {
     return 'Select Bag Type';

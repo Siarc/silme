@@ -8,9 +8,10 @@ class PrintTypeDropdown extends ConsumerWidget {
   PrintTypeDropdown({super.key});
 
   final List<String> _items = [
-    'Print Type 1',
-    'Print Type 2',
-    'Print Type 3',
+    'One Color',
+    'Two Color',
+    'Three Color',
+    'Four Color',
   ];
 
   @override
@@ -61,7 +62,7 @@ class PrintTypeDropdown extends ConsumerWidget {
           title: Text(
             selectedItem,
             style: TextStyle(
-              color: selectedItem == 'Print Type'
+              color: selectedItem == 'Print Color'
                   ? Theme.of(context).colorScheme.onSurface.withOpacity(0.5)
                   : Theme.of(context).colorScheme.onSurface,
             ),

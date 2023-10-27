@@ -9,7 +9,7 @@ part 'print_type_provider.g.dart';
 class PrintType extends _$PrintType {
   @override
   String build() {
-    return 'Print Type';
+    return 'Print Color';
   }
 
   /// Set cotton type bag

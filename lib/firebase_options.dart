@@ -2,7 +2,7 @@
 // ignore_for_file: lines_longer_than_80_chars, avoid_classes_with_only_static_members
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
-    show defaultTargetPlatform, kIsWeb, TargetPlatform;
+    show TargetPlatform, defaultTargetPlatform, kIsWeb;
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -15,6 +15,7 @@ import 'package:flutter/foundation.dart'
 /// );
 /// ```
 class DefaultFirebaseOptions {
+  /// Returns the [FirebaseOptions] for the current platform.
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
       throw UnsupportedError(
@@ -42,13 +43,15 @@ class DefaultFirebaseOptions {
           'DefaultFirebaseOptions have not been configured for linux - '
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
-      default:
+      case TargetPlatform.fuchsia:
         throw UnsupportedError(
-          'DefaultFirebaseOptions are not supported for this platform.',
+          'DefaultFirebaseOptions have not been configured for fuchsia - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
         );
     }
   }
 
+  /// Configuration for Android.
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyC_6SDrRjvRmaiAfJAJ9ndUl-VqpQaiHKA',
     appId: '1:889327114141:android:b6bc39a444cd6b126f8174',
@@ -57,6 +60,7 @@ class DefaultFirebaseOptions {
     storageBucket: 'silmebagcalculator.appspot.com',
   );
 
+  /// Configuration for iOS.
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAdr3qsNy2orXtRfAec4neSQLtUn711P_c',
     appId: '1:889327114141:ios:13efe5d1a6dcbfd16f8174',
