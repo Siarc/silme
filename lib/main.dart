@@ -11,10 +11,14 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(ProviderScope(child: MyApp()));
+  runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
-///
+/// Main App
 class MyApp extends ConsumerWidget {
   /// Default Constructor
   MyApp({super.key});

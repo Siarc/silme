@@ -8,7 +8,7 @@ part of 'nonwoven_bag_provider.dart';
 
 String _$nonwovanBagHash() => r'b84d8c004da89cf3b8730e92f4d30ed7d00d7d17';
 
-/// Selected cotton type bag
+/// Selected nonwoven bag
 ///
 /// Copied from [NonwovanBag].
 @ProviderFor(NonwovanBag)

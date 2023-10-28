@@ -1,13 +1,13 @@
 // ignore_for_file: use_setters_to_change_properties
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:silme/features/nonwovan/model/nonwoven.dart';
 
 part 'nonwoven_bag_provider.g.dart';
 
-/// Selected cotton type bag
+/// Selected nonwoven bag
 @riverpod
 class NonwovanBag extends _$NonwovanBag {
+  /// Default constructor
   @override
   Nonwovan build() {
     return Nonwovan(

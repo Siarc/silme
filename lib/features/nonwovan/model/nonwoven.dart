@@ -1,5 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:json_annotation/json_annotation.dart';
+
+part 'nonwoven.g.dart';
+
 /// Model for nonwovan Bag
+@JsonSerializable()
 class Nonwovan {
   String bagType;
   double fabricPrice;
@@ -69,4 +74,9 @@ class Nonwovan {
       unitPrice: unitPrice ?? this.unitPrice,
     );
   }
+
+  factory Nonwovan.fromJson(Map<String, dynamic> json) =>
+      _$NonwovanFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NonwovanToJson(this);
 }

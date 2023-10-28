@@ -1,34 +1,97 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:silme/common/custom_outlined_text_form_field.dart';
+import 'package:silme/features/nonwovan/model/nonwoven.dart';
 import 'package:silme/features/nonwovan/presentation/component/nonwoven_bag_type_dropdown.dart';
 import 'package:silme/features/nonwovan/presentation/component/print_color_dropdown.dart';
-import 'package:silme/features/nonwovan/provider/nonwoven_delivery_type_provider.dart';
 import 'package:silme/features/nonwovan/provider/gusset_print_provider.dart';
 import 'package:silme/features/nonwovan/provider/nonwovan_bag_type_provider.dart';
 import 'package:silme/features/nonwovan/provider/nonwoven_bag_provider.dart';
+import 'package:silme/features/nonwovan/provider/nonwoven_delivery_type_provider.dart';
 import 'package:silme/features/nonwovan/provider/nonwoven_unit_price_provider.dart';
 import 'package:silme/features/nonwovan/provider/zipper_provider.dart';
 import 'package:silme/utils/app_sizes.dart';
+import 'package:silme/utils/local_keys.dart';
 
 /// Returns the column containing the fabric details.
-class NonwovanScreen extends HookConsumerWidget {
+class NonwovanScreen extends StatefulHookConsumerWidget {
   /// Default Constructor
   const NonwovanScreen({super.key});
+  @override
+  ConsumerState<NonwovanScreen> createState() => _NonwovanScreenState();
+}
+
+class _NonwovanScreenState extends ConsumerState<NonwovanScreen> {
+  @override
+  void initState() {
+    _loadSharedPreference();
+    super.initState();
+  }
+
+  /// Load saved value from shared preference
+  Future<void> _loadSharedPreference() async {
+    final prefs = await SharedPreferences.getInstance();
+    final nonwovenBagJsonEncoded =
+        prefs.getString(LocalKeys.nonwovenModelState);
+    // ignore: inference_failure_on_uninitialized_variable
+    var nonwovenBagJson;
+    try {
+      if (nonwovenBagJsonEncoded != null) {
+        nonwovenBagJson = jsonDecode(nonwovenBagJsonEncoded);
+      }
+    } catch (e) {
+      debugPrint('Rony2 nonwovenBagJson jsonDecode error -> $e');
+    }
+
+    if (nonwovenBagJson != null && nonwovenBagJson is Nonwovan) {
+      ref.read(nonwovanBagProvider.notifier).setNonwovenBag(nonwovenBagJson);
+    }
+  }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final fabricPriceController = useTextEditingController(text: '');
-    final heightController = useTextEditingController(text: '');
-    final widthController = useTextEditingController(text: '');
-    final gsmController = useTextEditingController(text: '');
-    final gussetController = useTextEditingController(text: '');
-    final quantityController = useTextEditingController(text: '');
-    final additionaCostController = useTextEditingController(text: '');
-    final profitController = useTextEditingController(text: '');
-    final homeDeliveryController = useTextEditingController(text: '');
+
+    final nonwovenBag = ref.watch(nonwovanBagProvider);
+
+    final fabricPriceController = useTextEditingController(
+      text: (nonwovenBag.fabricPrice != 0.0)
+          ? nonwovenBag.fabricPrice.toString()
+          : '',
+    );
+    final heightController = useTextEditingController(
+      text: (nonwovenBag.height != 0.0) ? nonwovenBag.height.toString() : '',
+    );
+    final widthController = useTextEditingController(
+      text: (nonwovenBag.width != 0.0) ? nonwovenBag.width.toString() : '',
+    );
+    final gsmController = useTextEditingController(
+      text: (nonwovenBag.gsm != 0.0) ? nonwovenBag.gsm.toString() : '',
+    );
+    final gussetController = useTextEditingController(
+      text: (nonwovenBag.gusset != 0.0) ? nonwovenBag.gusset.toString() : '',
+    );
+    final quantityController = useTextEditingController(
+      text:
+          (nonwovenBag.quanntity != 0) ? nonwovenBag.quanntity.toString() : '',
+    );
+    final additionaCostController = useTextEditingController(
+      text: (nonwovenBag.additioonalCost != 0.0)
+          ? nonwovenBag.additioonalCost.toString()
+          : '',
+    );
+    final profitController = useTextEditingController(
+      text: (nonwovenBag.profit != 0.0) ? nonwovenBag.profit.toString() : '',
+    );
+    final homeDeliveryController = useTextEditingController(
+      text: (nonwovenBag.homeDeliveryCost != 0.0)
+          ? nonwovenBag.homeDeliveryCost.toString()
+          : '',
+    );
     return Scaffold(
       body: Stack(
         children: [
@@ -476,13 +539,20 @@ class NonwovanScreen extends HookConsumerWidget {
               controller: homeDeliveryController,
               label: 'Home Delivery',
               numberOnly: true,
-              onChanged: (value) {
+              onChanged: (value) async {
                 if (value == '') {
                   ref.read(nonwovanBagProvider.notifier).setHomeDeliveryCost(0);
                 } else {
                   ref
                       .read(nonwovanBagProvider.notifier)
                       .setHomeDeliveryCost(double.parse(value));
+                  final nonwovenBag = ref.read(nonwovanBagProvider);
+
+                  final prefs = await SharedPreferences.getInstance();
+                  await prefs.setString(
+                    LocalKeys.nonwovenModelState,
+                    jsonEncode(nonwovenBag.toJson()),
+                  );
                 }
               },
             ),
