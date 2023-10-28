@@ -6,7 +6,7 @@ part of 'delivery_type_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$deliveryTypeHash() => r'e6d1d38d39c3100e13d2f95ece4897443f8a0e31';
+String _$deliveryTypeHash() => r'4193448b8a7bcb4333e14a58880ec7a4a8ee2f26';
 
 /// Selected cotton type bag
 ///

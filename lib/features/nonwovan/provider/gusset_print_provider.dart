@@ -9,7 +9,7 @@ part 'gusset_print_provider.g.dart';
 class GussetPrint extends _$GussetPrint {
   @override
   int build() {
-    return 0;
+    return 2;
   }
 
   /// Set cotton type bag

@@ -9,7 +9,7 @@ part 'zipper_provider.g.dart';
 class Zipper extends _$Zipper {
   @override
   int build() {
-    return 0;
+    return 2;
   }
 
   /// Set cotton type bag

@@ -1,21 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:silme/common/custom_outlined_text_form_field.dart';
-import 'package:silme/features/nonwovan/presentation/component/cotton_type_dropdown.dart';
-import 'package:silme/features/nonwovan/presentation/component/print_type_dropdown.dart';
+import 'package:silme/features/nonwovan/presentation/component/nonwoven_bag_type_dropdown.dart';
+import 'package:silme/features/nonwovan/presentation/component/print_color_dropdown.dart';
 import 'package:silme/features/nonwovan/provider/delivery_type_provider.dart';
 import 'package:silme/features/nonwovan/provider/gusset_print_provider.dart';
+import 'package:silme/features/nonwovan/provider/nonwovan_bag_type_provider.dart';
+import 'package:silme/features/nonwovan/provider/nonwoven_bag_provider.dart';
+import 'package:silme/features/nonwovan/provider/nonwoven_unit_price_provider.dart';
 import 'package:silme/features/nonwovan/provider/zipper_provider.dart';
 import 'package:silme/utils/app_sizes.dart';
 
 /// Returns the column containing the fabric details.
-class NonwovanScreen extends ConsumerWidget {
+class NonwovanScreen extends HookConsumerWidget {
   /// Default Constructor
   const NonwovanScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
+    final fabricPriceController = useTextEditingController(text: '');
+    final heightController = useTextEditingController(text: '');
+    final widthController = useTextEditingController(text: '');
+    final gsmController = useTextEditingController(text: '');
+    final gussetController = useTextEditingController(text: '');
+    final quantityController = useTextEditingController(text: '');
+    final additionaCostController = useTextEditingController(text: '');
+    final profitController = useTextEditingController(text: '');
     return Scaffold(
       body: Stack(
         children: [
@@ -41,7 +53,17 @@ class NonwovanScreen extends ConsumerWidget {
                   right: 20,
                 ),
                 width: size.width,
-                child: fabricDetails(ref, context),
+                child: fabricDetails(
+                    ref,
+                    context,
+                    fabricPriceController,
+                    heightController,
+                    widthController,
+                    gsmController,
+                    gussetController,
+                    quantityController,
+                    additionaCostController,
+                    profitController),
               ),
             ),
           ),
@@ -51,24 +73,51 @@ class NonwovanScreen extends ConsumerWidget {
   }
 
   /// Fabric details
-  Column fabricDetails(WidgetRef ref, BuildContext context) {
+  Column fabricDetails(
+    WidgetRef ref,
+    BuildContext context,
+    TextEditingController fabricPriceController,
+    TextEditingController heightController,
+    TextEditingController widthController,
+    TextEditingController gsmController,
+    TextEditingController gussetController,
+    TextEditingController quantityController,
+    TextEditingController additionaCostController,
+    TextEditingController profitController,
+  ) {
+    final showGussetZipper = ref.watch(nonwovanBagTypeProvider);
     return Column(
       children: [
-        CottonTypeDropdown(),
+        NonwovenBagTypeDropdown(),
         gapH12,
-        fabricPrice(),
+        fabricPrice(
+          ref,
+          fabricPriceController,
+        ),
         gapH8,
-        bagSize(),
+        bagSize(
+          ref,
+          heightController,
+          widthController,
+        ),
         gapH8,
-        bagPrintType(),
+        bagGSMGusset(
+          ref,
+          gsmController,
+          gussetController,
+        ),
         gapH8,
-        bagGussetPrintColor(),
+        PrintColorDropdown(),
         gapH8,
-        bagGussetPrint(ref, context),
+        if (showGussetZipper == 'Sewing Bag')
+          bagGussetPrintAndZipper(ref, context),
+        bagQuantityAdditionalCost(
+          ref,
+          quantityController,
+          additionaCostController,
+        ),
         gapH8,
-        bagZipper(ref, context),
-        gapH8,
-        bagQuantity(),
+        bagProfit(ref, profitController),
         gapH8,
         bagDeliveryType(ref, context),
         gapH12,
@@ -78,43 +127,66 @@ class NonwovanScreen extends ConsumerWidget {
     );
   }
 
-  /// Bag GSM and Print Type
-  Row bagPrintType() {
-    return Row(
+  /// Bag Gusset and Zipper
+  Column bagGussetPrintAndZipper(WidgetRef ref, BuildContext context) {
+    return Column(
       children: [
-        Expanded(
-          child: CustomOutlinedTextFormField(
-            label: 'GSM',
-          ),
-        ),
-        gapW8,
-        Expanded(
-          child: PrintTypeDropdown(),
-        ),
+        bagGussetPrint(ref, context),
+        gapH8,
+        bagZipper(ref, context),
+        gapH8,
       ],
     );
   }
 
   /// Fabric Price
-  Widget fabricPrice() {
+  Widget fabricPrice(
+    WidgetRef ref,
+    TextEditingController fabricPriceController,
+  ) {
     return CustomOutlinedTextFormField(
+      controller: fabricPriceController,
       label: 'Fabric Price',
+      numberOnly: true,
+      onChanged: (value) {
+        ref
+            .read(nonwovanBagProvider.notifier)
+            .setFabricPrice(double.parse(value));
+      },
     );
   }
 
   /// Bag Gusset and Print Color
-  Row bagGussetPrintColor() {
+  Row bagGSMGusset(
+    WidgetRef ref,
+    TextEditingController gsmController,
+    TextEditingController gussetController,
+  ) {
     return Row(
       children: [
         Expanded(
           child: CustomOutlinedTextFormField(
-            label: 'Gusset',
+            controller: gsmController,
+            label: 'GSM',
+            numberOnly: true,
+            onChanged: (value) {
+              ref
+                  .read(nonwovanBagProvider.notifier)
+                  .setGsm(double.parse(value));
+            },
           ),
         ),
         gapW8,
         Expanded(
           child: CustomOutlinedTextFormField(
-            label: 'Print Color',
+            controller: gussetController,
+            label: 'Gusset',
+            numberOnly: true,
+            onChanged: (value) {
+              ref
+                  .read(nonwovanBagProvider.notifier)
+                  .setGusset(double.parse(value));
+            },
           ),
         ),
       ],
@@ -122,18 +194,36 @@ class NonwovanScreen extends ConsumerWidget {
   }
 
   /// Bag Size (Height and Width)
-  Row bagSize() {
+  Row bagSize(
+    WidgetRef ref,
+    TextEditingController heightController,
+    TextEditingController widthController,
+  ) {
     return Row(
       children: [
         Expanded(
           child: CustomOutlinedTextFormField(
+            controller: heightController,
             label: 'Height',
+            numberOnly: true,
+            onChanged: (value) {
+              ref
+                  .watch(nonwovanBagProvider.notifier)
+                  .setHeight(double.parse(value));
+            },
           ),
         ),
         gapW8,
         Expanded(
           child: CustomOutlinedTextFormField(
+            controller: widthController,
             label: 'Width',
+            numberOnly: true,
+            onChanged: (value) {
+              ref
+                  .watch(nonwovanBagProvider.notifier)
+                  .setWidth(double.parse(value));
+            },
           ),
         ),
       ],
@@ -239,9 +329,39 @@ class NonwovanScreen extends ConsumerWidget {
   }
 
   /// Bag Quantity
-  Widget bagQuantity() {
-    return CustomOutlinedTextFormField(
-      label: 'Quantity',
+  Widget bagQuantityAdditionalCost(
+    WidgetRef ref,
+    TextEditingController quantityController,
+    TextEditingController additionaCostController,
+  ) {
+    return Row(
+      children: [
+        Expanded(
+          child: CustomOutlinedTextFormField(
+            controller: quantityController,
+            label: 'Quantity',
+            numberOnly: true,
+            onChanged: (value) {
+              ref
+                  .read(nonwovanBagProvider.notifier)
+                  .setQuantity(int.parse(value));
+            },
+          ),
+        ),
+        gapW8,
+        Expanded(
+          child: CustomOutlinedTextFormField(
+            controller: additionaCostController,
+            label: 'Additional Cost',
+            numberOnly: true,
+            onChanged: (value) {
+              ref
+                  .read(nonwovanBagProvider.notifier)
+                  .setAdditionalCost(double.parse(value));
+            },
+          ),
+        ),
+      ],
     );
   }
 
@@ -292,24 +412,6 @@ class NonwovanScreen extends ConsumerWidget {
                   value: 2,
                   visualDensity: VisualDensity.compact,
                   groupValue: selectedValue,
-                  title: const Text('Courier Delivery'),
-                  onChanged: (val) {
-                    ref
-                        .read(deliveryTypeProvider.notifier)
-                        .setDeliveryType(val!);
-                  },
-                  activeColor: Colors.green[700],
-                  selected: selectedValue == 2,
-                ),
-              ),
-              SizedBox(
-                width: 240,
-                height: 48,
-                child: RadioListTile(
-                  contentPadding: EdgeInsets.zero,
-                  value: 3,
-                  visualDensity: VisualDensity.compact,
-                  groupValue: selectedValue,
                   title: const Text('Home Delivery'),
                   onChanged: (val) {
                     ref
@@ -317,7 +419,7 @@ class NonwovanScreen extends ConsumerWidget {
                         .setDeliveryType(val!);
                   },
                   activeColor: Colors.green[700],
-                  selected: selectedValue == 3,
+                  selected: selectedValue == 2,
                 ),
               ),
             ],
@@ -329,6 +431,7 @@ class NonwovanScreen extends ConsumerWidget {
 
   /// Total Price of the bag
   Widget unitPrice(WidgetRef ref, BuildContext context) {
+    final unitPrice = ref.watch(nonwovenUnitPriceProvider);
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -353,11 +456,23 @@ class NonwovanScreen extends ConsumerWidget {
           ),
           const Spacer(),
           Text(
-            '120000',
+            unitPrice,
             style: Theme.of(context).textTheme.titleLarge,
           ),
         ],
       ),
+    );
+  }
+
+  /// Bag Profit
+  Widget bagProfit(WidgetRef ref, TextEditingController profitController) {
+    return CustomOutlinedTextFormField(
+      controller: profitController,
+      label: 'Profit',
+      numberOnly: true,
+      onChanged: (value) {
+        ref.read(nonwovanBagProvider.notifier).setProfit(double.parse(value));
+      },
     );
   }
 }

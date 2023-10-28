@@ -9,7 +9,7 @@ part 'delivery_type_provider.g.dart';
 class DeliveryType extends _$DeliveryType {
   @override
   int build() {
-    return 0;
+    return 1;
   }
 
   /// Set cotton type bag

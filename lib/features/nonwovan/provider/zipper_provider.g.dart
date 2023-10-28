@@ -6,7 +6,7 @@ part of 'zipper_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$zipperHash() => r'b4360489e17c304e4bf406dac9d153802357e780';
+String _$zipperHash() => r'63c8364965664a9d5bfac6efd98618c0c737cd4e';
 
 /// Selected cotton type bag
 ///

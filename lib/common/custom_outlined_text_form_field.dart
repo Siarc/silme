@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// A custom text form field widget that can be used to get user input.
@@ -15,6 +16,8 @@ class CustomOutlinedTextFormField extends ConsumerWidget {
     this.onChanged,
     this.validator,
     this.obscureText = false,
+    this.numberOnly = false,
+    this.range,
     super.key,
   });
 
@@ -42,6 +45,12 @@ class CustomOutlinedTextFormField extends ConsumerWidget {
   /// Obscure Text (Password)
   final bool obscureText;
 
+  /// Numbers only
+  final bool numberOnly;
+
+  /// Numbers only
+  final String? range;
+
   /// Hint Text
   final String? hint;
 
@@ -52,7 +61,12 @@ class CustomOutlinedTextFormField extends ConsumerWidget {
       maxLines: obscureText ? 1 : lines,
       controller: controller,
       obscureText: obscureText,
-      keyboardType: TextInputType.name,
+      // if condition for number only
+      keyboardType: numberOnly
+          ? const TextInputType.numberWithOptions(
+              decimal: true,
+            )
+          : TextInputType.text,
       style: Theme.of(context).textTheme.titleMedium,
       decoration: InputDecoration(
         errorStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
@@ -68,6 +82,50 @@ class CustomOutlinedTextFormField extends ConsumerWidget {
       ),
       onChanged: onChanged,
       validator: validator,
+      // if condition for number only
+      inputFormatters: [
+        if (numberOnly) ...[
+          FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*$')),
+          if (range != null && range!.isNotEmpty)
+            RangeTextInputFormatter(min: 0, max: double.parse(range!)),
+        ]
+      ],
     );
+  }
+}
+
+/// A custom number field widget that can be used for predefined range.
+class RangeTextInputFormatter extends TextInputFormatter {
+  /// Constructor Params
+  RangeTextInputFormatter({required this.min, required this.max});
+
+  /// Minimum value
+  final double min;
+
+  /// Maximum value
+  final double max;
+
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    if (newValue.text.isEmpty) {
+      return newValue;
+    }
+
+    final newValueNumber = double.tryParse(newValue.text);
+
+    if (newValueNumber == null) {
+      return oldValue;
+    }
+
+    if (newValueNumber < min) {
+      return newValue.copyWith(text: min.toString());
+    } else if (newValueNumber > max) {
+      return newValue.copyWith(text: max.toString());
+    } else {
+      return newValue;
+    }
   }
 }

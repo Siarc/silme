@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:silme/features/nonwovan/provider/print_type_provider.dart';
+import 'package:silme/features/nonwovan/provider/nonwovan_bag_type_provider.dart';
 
-/// Custom dropdown widget for cotton type bags
-class PrintTypeDropdown extends ConsumerWidget {
+/// Custom dropdown widget for nonwoven bag type bags
+class NonwovenBagTypeDropdown extends ConsumerWidget {
   /// Default Constructor
-  PrintTypeDropdown({super.key});
+  NonwovenBagTypeDropdown({super.key});
 
-  final List<String> _items = [
-    'One Color',
-    'Two Color',
-    'Three Color',
-    'Four Color',
+  final List<String> _nonwovanBagTypeList = [
+    'Handle Bag',
+    'D Cut Bag',
+    'Auto Box Handle Bag',
+    'Auto Box D Cut Bag',
+    'Sewing Bag',
   ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
-    final selectedItem = ref.watch(printTypeProvider);
+    final selectedItem = ref.watch(nonwovanBagTypeProvider);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -37,10 +38,10 @@ class PrintTypeDropdown extends ConsumerWidget {
         ),
         offset: const Offset(0, 62),
         onSelected: (value) {
-          ref.read(printTypeProvider.notifier).setPrintType(value);
+          ref.read(nonwovanBagTypeProvider.notifier).setNonwovenType(value);
         },
         itemBuilder: (BuildContext context) {
-          return _items.map((String item) {
+          return _nonwovanBagTypeList.map((String item) {
             return PopupMenuItem(
               padding: EdgeInsets.zero,
               value: item,
@@ -62,7 +63,7 @@ class PrintTypeDropdown extends ConsumerWidget {
           title: Text(
             selectedItem,
             style: TextStyle(
-              color: selectedItem == 'Print Color'
+              color: selectedItem == 'Select Bag Type'
                   ? Theme.of(context).colorScheme.onSurface.withOpacity(0.5)
                   : Theme.of(context).colorScheme.onSurface,
             ),

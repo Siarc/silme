@@ -6,7 +6,7 @@ part of 'gusset_print_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$gussetPrintHash() => r'e399b38980ea16eec6b06429673f38b5c244a881';
+String _$gussetPrintHash() => r'2926e7df1f28be7136a2cbbb5d18ce781b1f6d34';
 
 /// Selected cotton type bag
 ///
