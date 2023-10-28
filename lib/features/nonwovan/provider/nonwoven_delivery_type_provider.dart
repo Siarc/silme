@@ -2,14 +2,14 @@
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'delivery_type_provider.g.dart';
+part 'nonwoven_delivery_type_provider.g.dart';
 
 /// Selected cotton type bag
 @riverpod
-class DeliveryType extends _$DeliveryType {
+class NonwovenDeliveryType extends _$NonwovenDeliveryType {
   @override
   int build() {
-    return 1;
+    return 0;
   }
 
   /// Set cotton type bag

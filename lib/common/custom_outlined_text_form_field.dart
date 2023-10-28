@@ -11,13 +11,14 @@ class CustomOutlinedTextFormField extends ConsumerWidget {
     this.hint,
     this.errorColor,
     this.hintColor,
-    this.lines,
+    this.lines = 1,
     this.controller,
     this.onChanged,
     this.validator,
     this.obscureText = false,
     this.numberOnly = false,
-    this.range,
+    this.allowDecimal = true,
+    this.range = '92233720368547758',
     super.key,
   });
 
@@ -47,6 +48,9 @@ class CustomOutlinedTextFormField extends ConsumerWidget {
 
   /// Numbers only
   final bool numberOnly;
+
+  /// Allow decimal
+  final bool allowDecimal;
 
   /// Numbers only
   final String? range;
@@ -88,6 +92,7 @@ class CustomOutlinedTextFormField extends ConsumerWidget {
           FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*$')),
           if (range != null && range!.isNotEmpty)
             RangeTextInputFormatter(min: 0, max: double.parse(range!)),
+          if (!allowDecimal) FilteringTextInputFormatter.deny(RegExp('[.]')),
         ]
       ],
     );

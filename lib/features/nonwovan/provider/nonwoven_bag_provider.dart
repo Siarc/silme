@@ -23,6 +23,7 @@ class NonwovanBag extends _$NonwovanBag {
       quanntity: 0,
       additioonalCost: 0,
       deliveryType: '',
+      homeDeliveryCost: 0,
       profit: 0,
       unitPrice: 0,
     );
@@ -151,6 +152,16 @@ class NonwovanBag extends _$NonwovanBag {
   /// get delivery type
   String getDeliveryType() {
     return state.deliveryType;
+  }
+
+  /// set home delivery cost
+  void setHomeDeliveryCost(double value) {
+    state = state.copyWith(homeDeliveryCost: value);
+  }
+
+  /// get home delivery cost
+  double getHomeDeliveryCost() {
+    return state.homeDeliveryCost;
   }
 
   /// set profit

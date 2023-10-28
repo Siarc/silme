@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:silme/common/custom_outlined_text_form_field.dart';
 import 'package:silme/features/nonwovan/presentation/component/nonwoven_bag_type_dropdown.dart';
 import 'package:silme/features/nonwovan/presentation/component/print_color_dropdown.dart';
-import 'package:silme/features/nonwovan/provider/delivery_type_provider.dart';
+import 'package:silme/features/nonwovan/provider/nonwoven_delivery_type_provider.dart';
 import 'package:silme/features/nonwovan/provider/gusset_print_provider.dart';
 import 'package:silme/features/nonwovan/provider/nonwovan_bag_type_provider.dart';
 import 'package:silme/features/nonwovan/provider/nonwoven_bag_provider.dart';
@@ -28,6 +28,7 @@ class NonwovanScreen extends HookConsumerWidget {
     final quantityController = useTextEditingController(text: '');
     final additionaCostController = useTextEditingController(text: '');
     final profitController = useTextEditingController(text: '');
+    final homeDeliveryController = useTextEditingController(text: '');
     return Scaffold(
       body: Stack(
         children: [
@@ -54,16 +55,18 @@ class NonwovanScreen extends HookConsumerWidget {
                 ),
                 width: size.width,
                 child: fabricDetails(
-                    ref,
-                    context,
-                    fabricPriceController,
-                    heightController,
-                    widthController,
-                    gsmController,
-                    gussetController,
-                    quantityController,
-                    additionaCostController,
-                    profitController),
+                  ref,
+                  context,
+                  fabricPriceController,
+                  heightController,
+                  widthController,
+                  gsmController,
+                  gussetController,
+                  quantityController,
+                  additionaCostController,
+                  profitController,
+                  homeDeliveryController,
+                ),
               ),
             ),
           ),
@@ -84,6 +87,7 @@ class NonwovanScreen extends HookConsumerWidget {
     TextEditingController quantityController,
     TextEditingController additionaCostController,
     TextEditingController profitController,
+    TextEditingController homeDeliveryController,
   ) {
     final showGussetZipper = ref.watch(nonwovanBagTypeProvider);
     return Column(
@@ -119,7 +123,11 @@ class NonwovanScreen extends HookConsumerWidget {
         gapH8,
         bagProfit(ref, profitController),
         gapH8,
-        bagDeliveryType(ref, context),
+        bagDeliveryType(
+          ref,
+          context,
+          homeDeliveryController,
+        ),
         gapH12,
         unitPrice(ref, context),
         gapH8,
@@ -149,9 +157,13 @@ class NonwovanScreen extends HookConsumerWidget {
       label: 'Fabric Price',
       numberOnly: true,
       onChanged: (value) {
-        ref
-            .read(nonwovanBagProvider.notifier)
-            .setFabricPrice(double.parse(value));
+        if (value == '') {
+          ref.read(nonwovanBagProvider.notifier).setFabricPrice(0);
+        } else {
+          ref
+              .read(nonwovanBagProvider.notifier)
+              .setFabricPrice(double.parse(value));
+        }
       },
     );
   }
@@ -170,9 +182,13 @@ class NonwovanScreen extends HookConsumerWidget {
             label: 'GSM',
             numberOnly: true,
             onChanged: (value) {
-              ref
-                  .read(nonwovanBagProvider.notifier)
-                  .setGsm(double.parse(value));
+              if (value == '') {
+                ref.read(nonwovanBagProvider.notifier).setGsm(0);
+              } else {
+                ref
+                    .read(nonwovanBagProvider.notifier)
+                    .setGsm(double.parse(value));
+              }
             },
           ),
         ),
@@ -183,9 +199,13 @@ class NonwovanScreen extends HookConsumerWidget {
             label: 'Gusset',
             numberOnly: true,
             onChanged: (value) {
-              ref
-                  .read(nonwovanBagProvider.notifier)
-                  .setGusset(double.parse(value));
+              if (value == '') {
+                ref.read(nonwovanBagProvider.notifier).setGusset(0);
+              } else {
+                ref
+                    .read(nonwovanBagProvider.notifier)
+                    .setGusset(double.parse(value));
+              }
             },
           ),
         ),
@@ -207,9 +227,13 @@ class NonwovanScreen extends HookConsumerWidget {
             label: 'Height',
             numberOnly: true,
             onChanged: (value) {
-              ref
-                  .watch(nonwovanBagProvider.notifier)
-                  .setHeight(double.parse(value));
+              if (value == '') {
+                ref.read(nonwovanBagProvider.notifier).setHeight(0);
+              } else {
+                ref
+                    .read(nonwovanBagProvider.notifier)
+                    .setHeight(double.parse(value));
+              }
             },
           ),
         ),
@@ -220,9 +244,13 @@ class NonwovanScreen extends HookConsumerWidget {
             label: 'Width',
             numberOnly: true,
             onChanged: (value) {
-              ref
-                  .watch(nonwovanBagProvider.notifier)
-                  .setWidth(double.parse(value));
+              if (value == '') {
+                ref.read(nonwovanBagProvider.notifier).setWidth(0);
+              } else {
+                ref
+                    .read(nonwovanBagProvider.notifier)
+                    .setWidth(double.parse(value));
+              }
             },
           ),
         ),
@@ -341,10 +369,15 @@ class NonwovanScreen extends HookConsumerWidget {
             controller: quantityController,
             label: 'Quantity',
             numberOnly: true,
+            allowDecimal: false,
             onChanged: (value) {
-              ref
-                  .read(nonwovanBagProvider.notifier)
-                  .setQuantity(int.parse(value));
+              if (value == '') {
+                ref.read(nonwovanBagProvider.notifier).setQuantity(0);
+              } else {
+                ref
+                    .read(nonwovanBagProvider.notifier)
+                    .setQuantity(int.parse(value));
+              }
             },
           ),
         ),
@@ -355,9 +388,13 @@ class NonwovanScreen extends HookConsumerWidget {
             label: 'Additional Cost',
             numberOnly: true,
             onChanged: (value) {
-              ref
-                  .read(nonwovanBagProvider.notifier)
-                  .setAdditionalCost(double.parse(value));
+              if (value == '') {
+                ref.read(nonwovanBagProvider.notifier).setAdditionalCost(0);
+              } else {
+                ref
+                    .read(nonwovanBagProvider.notifier)
+                    .setAdditionalCost(double.parse(value));
+              }
             },
           ),
         ),
@@ -366,8 +403,12 @@ class NonwovanScreen extends HookConsumerWidget {
   }
 
   /// Bag Delivery Type options
-  Widget bagDeliveryType(WidgetRef ref, BuildContext context) {
-    final selectedValue = ref.watch(deliveryTypeProvider);
+  Widget bagDeliveryType(
+    WidgetRef ref,
+    BuildContext context,
+    TextEditingController homeDeliveryController,
+  ) {
+    final selectedValue = ref.watch(nonwovenDeliveryTypeProvider);
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -377,53 +418,74 @@ class NonwovanScreen extends HookConsumerWidget {
         ),
         color: Theme.of(context).colorScheme.surfaceVariant,
       ),
-      child: Row(
+      child: Column(
         children: [
-          Text(
-            'Delivery',
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
-          const Spacer(),
-          Column(
+          Row(
             children: [
-              SizedBox(
-                width: 240,
-                height: 48,
-                child: RadioListTile(
-                  contentPadding: EdgeInsets.zero,
-                  value: 1,
-                  visualDensity: VisualDensity.compact,
-                  groupValue: selectedValue,
-                  title: const Text('Without Delivery'),
-                  onChanged: (val) {
-                    ref
-                        .read(deliveryTypeProvider.notifier)
-                        .setDeliveryType(val!);
-                  },
-                  activeColor: Colors.green[700],
-                  selected: selectedValue == 1,
+              Expanded(
+                child: Text(
+                  'Delivery',
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),
-              SizedBox(
-                width: 240,
-                height: 48,
-                child: RadioListTile(
-                  contentPadding: EdgeInsets.zero,
-                  value: 2,
-                  visualDensity: VisualDensity.compact,
-                  groupValue: selectedValue,
-                  title: const Text('Home Delivery'),
-                  onChanged: (val) {
-                    ref
-                        .read(deliveryTypeProvider.notifier)
-                        .setDeliveryType(val!);
-                  },
-                  activeColor: Colors.green[700],
-                  selected: selectedValue == 2,
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 48,
+                      child: RadioListTile(
+                        contentPadding: EdgeInsets.zero,
+                        value: 0,
+                        visualDensity: VisualDensity.compact,
+                        groupValue: selectedValue,
+                        title: const Text('Without Delivery'),
+                        onChanged: (val) {
+                          ref
+                              .read(nonwovenDeliveryTypeProvider.notifier)
+                              .setDeliveryType(val!);
+                        },
+                        activeColor: Colors.green[700],
+                        selected: selectedValue == 0,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 48,
+                      child: RadioListTile(
+                        contentPadding: EdgeInsets.zero,
+                        value: 1,
+                        visualDensity: VisualDensity.compact,
+                        groupValue: selectedValue,
+                        title: const Text('Home Delivery'),
+                        onChanged: (val) {
+                          ref
+                              .read(nonwovenDeliveryTypeProvider.notifier)
+                              .setDeliveryType(val!);
+                        },
+                        activeColor: Colors.green[700],
+                        selected: selectedValue == 1,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
+              )
             ],
-          )
+          ),
+          if (selectedValue == 1)
+            CustomOutlinedTextFormField(
+              controller: homeDeliveryController,
+              label: 'Home Delivery',
+              numberOnly: true,
+              onChanged: (value) {
+                if (value == '') {
+                  ref.read(nonwovanBagProvider.notifier).setHomeDeliveryCost(0);
+                } else {
+                  ref
+                      .read(nonwovanBagProvider.notifier)
+                      .setHomeDeliveryCost(double.parse(value));
+                }
+              },
+            ),
         ],
       ),
     );
@@ -471,7 +533,11 @@ class NonwovanScreen extends HookConsumerWidget {
       label: 'Profit',
       numberOnly: true,
       onChanged: (value) {
-        ref.read(nonwovanBagProvider.notifier).setProfit(double.parse(value));
+        if (value == '') {
+          ref.read(nonwovanBagProvider.notifier).setProfit(0);
+        } else {
+          ref.read(nonwovanBagProvider.notifier).setProfit(double.parse(value));
+        }
       },
     );
   }

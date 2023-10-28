@@ -3,8 +3,10 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:silme/features/nonwovan/model/nonwoven.dart';
 import 'package:silme/features/nonwovan/model/nonwoven_unit_locals.dart';
+import 'package:silme/features/nonwovan/provider/gusset_print_provider.dart';
 import 'package:silme/features/nonwovan/provider/nonwovan_bag_type_provider.dart';
 import 'package:silme/features/nonwovan/provider/nonwoven_bag_provider.dart';
+import 'package:silme/features/nonwovan/provider/nonwoven_delivery_type_provider.dart';
 import 'package:silme/features/nonwovan/provider/nonwoven_print_type_provider.dart';
 
 part 'nonwoven_unit_price_provider.g.dart';
@@ -18,10 +20,15 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
     final nonwovenBagType = ref.watch(nonwovanBagTypeProvider);
     final nonwovenBagTypeValue = ref.watch(nonwovanBagTypeValueProvider);
     final printColorValue = ref.watch(nonwovenPrintTypeValueProvider);
+    final allowGussetPrint = ref.watch(gussetPrintProvider);
+    final allowZipper = ref.watch(gussetPrintProvider);
+    final deliveryType = ref.watch(nonwovenDeliveryTypeProvider);
 
     final nonwovanUnitLocals = getNonwovenUnitLocals(
       nonwovenBagType,
       nonWovenBag,
+      allowGussetPrint,
+      allowZipper,
     );
 
     final fabricPrice = nonwovanUnitLocals.fabricSqInch *
@@ -34,7 +41,10 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
     final blockCost =
         ((nonWovenBag.height - 4) * (nonWovenBag.width - 3) * 10) /
             nonWovenBag.quanntity;
-    final deliveryCost = 100 / nonWovenBag.quanntity;
+    var deliveryCost = 0.0;
+    if (deliveryType == 1) {
+      deliveryCost = nonWovenBag.homeDeliveryCost / nonWovenBag.quanntity;
+    }
 
     final bagPrice = fabricPrice +
         nonwovenBagTypeValue +
@@ -54,6 +64,8 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
   NonwovenUnitLocals getNonwovenUnitLocals(
     String nonwovenBagType,
     Nonwovan nonWovenBag,
+    int allowGussetPrint,
+    int allowZipper,
   ) {
     final nonwovenUnitLocals = NonwovenUnitLocals(
       heming: 0,
@@ -103,19 +115,23 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
 
         nonwovenUnitLocals.runner = runner;
 
-        nonwovenUnitLocals.gussetPrint = 1 +
-            ((nonWovenBag.height - 3) * (nonWovenBag.width - 1) * 10) /
-                nonWovenBag.quanntity;
+        if (allowGussetPrint == 1) {
+          nonwovenUnitLocals.gussetPrint = 1 +
+              ((nonWovenBag.height - 3) * (nonWovenBag.width - 1) * 10) /
+                  nonWovenBag.quanntity;
+        }
 
         nonwovenUnitLocals.piping = piping;
 
-        nonwovenUnitLocals.zipper = runner +
-            ((nonWovenBag.width + 3) * 0.15) +
-            3 +
-            ((nonWovenBag.width + 1) * nonWovenBag.height) *
-                0.00067 *
-                nonWovenBag.gsm *
-                (nonWovenBag.fabricPrice / 1000);
+        if (allowZipper == 1) {
+          nonwovenUnitLocals.zipper = runner +
+              ((nonWovenBag.width + 3) * 0.15) +
+              3 +
+              ((nonWovenBag.width + 1) * nonWovenBag.height) *
+                  0.00067 *
+                  nonWovenBag.gsm *
+                  (nonWovenBag.fabricPrice / 1000);
+        }
 
         nonwovenUnitLocals.fabricSqInch =
             ((nonWovenBag.height + heming) * nonWovenBag.width * 2) +

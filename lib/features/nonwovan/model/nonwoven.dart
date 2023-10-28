@@ -13,6 +13,7 @@ class Nonwovan {
   int quanntity;
   double additioonalCost;
   String deliveryType;
+  double homeDeliveryCost;
   double profit;
   double unitPrice;
   Nonwovan({
@@ -28,6 +29,7 @@ class Nonwovan {
     required this.quanntity,
     required this.additioonalCost,
     required this.deliveryType,
+    required this.homeDeliveryCost,
     required this.profit,
     required this.unitPrice,
   });
@@ -45,6 +47,7 @@ class Nonwovan {
     int? quanntity,
     double? additioonalCost,
     String? deliveryType,
+    double? homeDeliveryCost,
     double? profit,
     double? unitPrice,
   }) {
@@ -61,6 +64,7 @@ class Nonwovan {
       quanntity: quanntity ?? this.quanntity,
       additioonalCost: additioonalCost ?? this.additioonalCost,
       deliveryType: deliveryType ?? this.deliveryType,
+      homeDeliveryCost: homeDeliveryCost ?? this.homeDeliveryCost,
       profit: profit ?? this.profit,
       unitPrice: unitPrice ?? this.unitPrice,
     );
