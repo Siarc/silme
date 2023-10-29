@@ -28,6 +28,15 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
     final allowZipper = ref.watch(gussetPrintProvider);
     final deliveryType = ref.watch(nonwovenDeliveryTypeProvider);
 
+    final fabricPrice = double.tryParse(nonwovenBag.fabricPrice) ?? 0;
+    final gsm = double.tryParse(nonwovenBag.gsm) ?? 0;
+    final height = double.tryParse(nonwovenBag.height) ?? 0;
+    final width = double.tryParse(nonwovenBag.width) ?? 0;
+    final quanntity = double.tryParse(nonwovenBag.quanntity) ?? 0;
+    final homeDeliveryCost = double.tryParse(nonwovenBag.homeDeliveryCost) ?? 0;
+    final additioonalCost = double.tryParse(nonwovenBag.additioonalCost) ?? 0;
+    final profit = double.tryParse(nonwovenBag.profit) ?? 0;
+
     final nonwovanUnitLocals = getNonwovenUnitLocals(
       nonwovenBagType,
       nonwovenBag,
@@ -35,24 +44,18 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
       allowZipper,
     );
 
-    final fabricPrice = nonwovanUnitLocals.fabricSqInch *
-        0.00067 *
-        (double.parse(nonwovenBag.fabricPrice) / 1000) *
-        double.parse(nonwovenBag.gsm);
+    final nonwovenBagFabricPrice =
+        nonwovanUnitLocals.fabricSqInch * 0.00067 * (fabricPrice / 1000) * gsm;
 
-    final wastage = double.parse(nonwovenBag.fabricPrice) * (2 / 100);
+    final wastage = fabricPrice * (2 / 100);
 
-    final blockCost = ((double.parse(nonwovenBag.height) - 4) *
-            (double.parse(nonwovenBag.width) - 3) *
-            10) /
-        double.parse(nonwovenBag.quanntity);
+    final blockCost = ((height - 4) * (width - 3) * 10) / quanntity;
     var deliveryCost = 0.0;
     if (deliveryType == 1) {
-      deliveryCost = double.parse(nonwovenBag.homeDeliveryCost) /
-          double.parse(nonwovenBag.quanntity);
+      deliveryCost = homeDeliveryCost / quanntity;
     }
 
-    final bagPrice = fabricPrice +
+    final bagPrice = nonwovenBagFabricPrice +
         nonwovenBagTypeValue +
         blockCost +
         printColorValue +
@@ -60,8 +63,8 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
         nonwovanUnitLocals.gussetPrint +
         nonwovanUnitLocals.zipper +
         deliveryCost +
-        double.parse(nonwovenBag.additioonalCost) +
-        double.parse(nonwovenBag.profit);
+        additioonalCost +
+        profit;
 
     //ref.read(nonwovanBagProvider.notifier).setUnitPrice(bagPrice);
 
@@ -92,6 +95,12 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
       zipper: 0,
       fabricSqInch: 0,
     );
+    final height = double.tryParse(nonwovenBag.height) ?? 0;
+    final width = double.tryParse(nonwovenBag.width) ?? 0;
+    final gusset = double.tryParse(nonwovenBag.gusset) ?? 0;
+    final quanntity = double.tryParse(nonwovenBag.quanntity) ?? 0;
+    final gsm = double.tryParse(nonwovenBag.gsm) ?? 0;
+    final fabricPrice = double.tryParse(nonwovenBag.fabricPrice) ?? 0;
     switch (nonwovenBagType) {
       case 'Select Bag Type':
         return nonwovenUnitLocals;
@@ -104,12 +113,7 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
         nonwovenUnitLocals.handleFabric = handleFabric;
 
         nonwovenUnitLocals.fabricSqInch =
-            ((double.parse(nonwovenBag.height) + heming) *
-                    double.parse(nonwovenBag.width) *
-                    2) +
-                (double.parse(nonwovenBag.gusset) *
-                    double.parse(nonwovenBag.width)) +
-                handleFabric;
+            ((height + heming) * width * 2) + (gusset * width) + handleFabric;
 
         return nonwovenUnitLocals;
       case 'D Cut Bag':
@@ -118,20 +122,14 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
         nonwovenUnitLocals.heming = heming;
 
         nonwovenUnitLocals.fabricSqInch =
-            ((double.parse(nonwovenBag.height) + heming) *
-                    double.parse(nonwovenBag.width) *
-                    2) +
-                (double.parse(nonwovenBag.gusset) *
-                    double.parse(nonwovenBag.width));
+            ((height + heming) * width * 2) + (gusset * width);
 
         return nonwovenUnitLocals;
       case 'Sewing Bag':
         const heming = 1.5;
         const handleFabric = 70.0;
         const runner = 1.0;
-        final piping = (double.parse(nonwovenBag.height) * 4) +
-            (double.parse(nonwovenBag.width) * 2) +
-            10;
+        final piping = (height * 4) + (width * 2) + 10;
 
         nonwovenUnitLocals.heming = heming;
 
@@ -140,35 +138,23 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
         nonwovenUnitLocals.runner = runner;
 
         if (allowGussetPrint == 1) {
-          nonwovenUnitLocals.gussetPrint = 1 +
-              ((double.parse(nonwovenBag.height) - 3) *
-                      (double.parse(nonwovenBag.width) - 1) *
-                      10) /
-                  double.parse(nonwovenBag.quanntity);
+          nonwovenUnitLocals.gussetPrint =
+              1 + ((height - 3) * (width - 1) * 10) / quanntity;
         }
 
         nonwovenUnitLocals.piping = piping;
 
         if (allowZipper == 1) {
           nonwovenUnitLocals.zipper = runner +
-              ((double.parse(nonwovenBag.width) + 3) * 0.15) +
+              ((width + 3) * 0.15) +
               3 +
-              ((double.parse(nonwovenBag.width) + 1) *
-                      double.parse(nonwovenBag.height)) *
-                  0.00067 *
-                  double.parse(nonwovenBag.gsm) *
-                  (double.parse(nonwovenBag.fabricPrice) / 1000);
+              ((width + 1) * height) * 0.00067 * gsm * (fabricPrice / 1000);
         }
 
-        nonwovenUnitLocals.fabricSqInch =
-            ((double.parse(nonwovenBag.height) + heming) *
-                    double.parse(nonwovenBag.width) *
-                    2) +
-                (double.parse(nonwovenBag.gusset) *
-                    ((double.parse(nonwovenBag.height) + heming) * 2 +
-                        double.parse(nonwovenBag.width))) +
-                handleFabric +
-                piping;
+        nonwovenUnitLocals.fabricSqInch = ((height + heming) * width * 2) +
+            (gusset * ((height + heming) * 2 + width)) +
+            handleFabric +
+            piping;
 
         return nonwovenUnitLocals;
       case 'Autobox Handle Bag':
@@ -179,14 +165,9 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
 
         nonwovenUnitLocals.handleFabric = handleFabric;
 
-        nonwovenUnitLocals.fabricSqInch =
-            ((double.parse(nonwovenBag.height) + heming) *
-                    double.parse(nonwovenBag.width) *
-                    2) +
-                ((double.parse(nonwovenBag.gusset) + 0.75) *
-                    ((double.parse(nonwovenBag.height) + heming) * 2 +
-                        double.parse(nonwovenBag.width))) +
-                handleFabric;
+        nonwovenUnitLocals.fabricSqInch = ((height + heming) * width * 2) +
+            ((gusset + 0.75) * ((height + heming) * 2 + width)) +
+            handleFabric;
 
         return nonwovenUnitLocals;
       case 'Autobox D Cut Bag':
@@ -194,13 +175,8 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
 
         nonwovenUnitLocals.heming = heming;
 
-        nonwovenUnitLocals.fabricSqInch =
-            ((double.parse(nonwovenBag.height) + heming) *
-                    double.parse(nonwovenBag.width) *
-                    2) +
-                ((double.parse(nonwovenBag.gusset) + 0.75) *
-                    ((double.parse(nonwovenBag.height) + heming) * 2 +
-                        double.parse(nonwovenBag.width)));
+        nonwovenUnitLocals.fabricSqInch = ((height + heming) * width * 2) +
+            ((gusset + 0.75) * ((height + heming) * 2 + width));
 
         return nonwovenUnitLocals;
       default:

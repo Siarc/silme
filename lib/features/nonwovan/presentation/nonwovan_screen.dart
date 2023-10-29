@@ -183,7 +183,7 @@ class _NonwovanScreenState extends ConsumerState<NonwovanScreen> {
         bagGSMGusset(ref),
         gapH8,
         PrintColorDropdown(),
-        gapH8,
+        gapH12,
         if (showGussetZipper == 'Sewing Bag')
           bagGussetPrintAndZipper(ref, context),
         bagQuantityAdditionalCost(ref),
