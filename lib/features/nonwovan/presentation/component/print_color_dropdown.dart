@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:silme/features/nonwovan/provider/nonwoven_bag_provider.dart';
 import 'package:silme/features/nonwovan/provider/nonwoven_print_type_provider.dart';
 
 /// Custom dropdown widget for nonwoven print color
@@ -37,6 +38,7 @@ class PrintColorDropdown extends ConsumerWidget {
         ),
         offset: const Offset(0, 62),
         onSelected: (value) {
+          ref.read(nonwovanBagProvider.notifier).setPrintColor(value);
           ref.read(nonwovenPrintTypeProvider.notifier).setPrintType(value);
         },
         itemBuilder: (BuildContext context) {

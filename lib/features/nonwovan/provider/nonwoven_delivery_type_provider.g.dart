@@ -7,7 +7,7 @@ part of 'nonwoven_delivery_type_provider.dart';
 // **************************************************************************
 
 String _$nonwovenDeliveryTypeHash() =>
-    r'0b11c5f84b3476da81734e882a18a0cbc176a345';
+    r'a006c312c1035b2192e9acdda6869fa0fa74668f';
 
 /// Selected cotton type bag
 ///

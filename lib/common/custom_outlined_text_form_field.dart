@@ -76,6 +76,8 @@ class CustomOutlinedTextFormField extends ConsumerWidget {
         errorStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
               color: Theme.of(context).colorScheme.error,
             ),
+        floatingLabelAlignment: FloatingLabelAlignment.center,
+        floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: label,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 10,
@@ -84,6 +86,9 @@ class CustomOutlinedTextFormField extends ConsumerWidget {
           borderRadius: BorderRadius.circular(10),
         ),
       ),
+      onTapOutside: (event) {
+        FocusScope.of(context).unfocus();
+      },
       onChanged: onChanged,
       validator: validator,
       // if condition for number only

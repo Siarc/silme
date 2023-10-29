@@ -7,20 +7,20 @@ part 'nonwoven.g.dart';
 @JsonSerializable()
 class Nonwovan {
   String bagType;
-  double fabricPrice;
-  double height;
-  double width;
-  double gsm;
-  double gusset;
+  String fabricPrice;
+  String height;
+  String width;
+  String gsm;
+  String gusset;
   String printColor;
   bool gussetPrint;
   bool zipper;
-  int quanntity;
-  double additioonalCost;
+  String quanntity;
+  String additioonalCost;
   String deliveryType;
-  double homeDeliveryCost;
-  double profit;
-  double unitPrice;
+  String homeDeliveryCost;
+  String profit;
+  String unitPrice;
   Nonwovan({
     required this.bagType,
     required this.fabricPrice,
@@ -41,20 +41,20 @@ class Nonwovan {
 
   Nonwovan copyWith({
     String? bagType,
-    double? fabricPrice,
-    double? height,
-    double? width,
-    double? gsm,
-    double? gusset,
+    String? fabricPrice,
+    String? height,
+    String? width,
+    String? gsm,
+    String? gusset,
     String? printColor,
     bool? gussetPrint,
     bool? zipper,
-    int? quanntity,
-    double? additioonalCost,
+    String? quanntity,
+    String? additioonalCost,
     String? deliveryType,
-    double? homeDeliveryCost,
-    double? profit,
-    double? unitPrice,
+    String? homeDeliveryCost,
+    String? profit,
+    String? unitPrice,
   }) {
     return Nonwovan(
       bagType: bagType ?? this.bagType,

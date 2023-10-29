@@ -6,7 +6,7 @@ part of 'nonwoven_bag_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$nonwovanBagHash() => r'b84d8c004da89cf3b8730e92f4d30ed7d00d7d17';
+String _$nonwovanBagHash() => r'a6c4a5896fea26fda3ecd50fea3beb1c9dea27f0';
 
 /// Selected nonwoven bag
 ///

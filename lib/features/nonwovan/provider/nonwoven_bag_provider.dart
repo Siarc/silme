@@ -12,26 +12,27 @@ class NonwovanBag extends _$NonwovanBag {
   Nonwovan build() {
     return Nonwovan(
       bagType: '',
-      fabricPrice: 0,
-      height: 0,
-      width: 0,
-      gsm: 0,
-      gusset: 0,
+      fabricPrice: '',
+      height: '',
+      width: '',
+      gsm: '',
+      gusset: '',
       printColor: '',
       gussetPrint: false,
       zipper: false,
-      quanntity: 0,
-      additioonalCost: 0,
+      quanntity: '',
+      additioonalCost: '',
       deliveryType: '',
-      homeDeliveryCost: 0,
-      profit: 0,
-      unitPrice: 0,
+      homeDeliveryCost: '',
+      profit: '',
+      unitPrice: '',
     );
   }
 
   /// Set nonwoven bag if we already have one saved
   void setNonwovenBag(Nonwovan item) {
     state = item;
+    print('Rony2 state -> $state');
   }
 
   /// set bag type
@@ -39,59 +40,29 @@ class NonwovanBag extends _$NonwovanBag {
     state = state.copyWith(bagType: value);
   }
 
-  /// get bag type
-  String getBagType() {
-    return state.bagType;
-  }
-
   /// set fabric price
-  void setFabricPrice(double value) {
+  void setFabricPrice(String value) {
     state = state.copyWith(fabricPrice: value);
   }
 
-  /// get fabric price
-  double getFabricPrice() {
-    return state.fabricPrice;
-  }
-
   /// set height
-  void setHeight(double value) {
+  void setHeight(String value) {
     state = state.copyWith(height: value);
   }
 
-  /// get height
-  double getHeight() {
-    return state.height;
-  }
-
   /// set width
-  void setWidth(double value) {
+  void setWidth(String value) {
     state = state.copyWith(width: value);
   }
 
-  /// get width
-  double getWidth() {
-    return state.width;
-  }
-
   /// set gsm
-  void setGsm(double value) {
+  void setGsm(String value) {
     state = state.copyWith(gsm: value);
   }
 
-  /// get gsm
-  double getGsm() {
-    return state.gsm;
-  }
-
   /// set gusset
-  void setGusset(double value) {
+  void setGusset(String value) {
     state = state.copyWith(gusset: value);
-  }
-
-  /// get gusset
-  double getGusset() {
-    return state.gusset;
   }
 
   /// set print color
@@ -99,19 +70,9 @@ class NonwovanBag extends _$NonwovanBag {
     state = state.copyWith(printColor: value);
   }
 
-  /// get print color
-  String getPrintColor() {
-    return state.printColor;
-  }
-
   /// set gusset print
   void setGussetPrint({bool value = false}) {
     state = state.copyWith(gussetPrint: value);
-  }
-
-  /// get gusset print
-  bool getGussetPrint() {
-    return state.gussetPrint;
   }
 
   /// set zipper
@@ -119,29 +80,14 @@ class NonwovanBag extends _$NonwovanBag {
     state = state.copyWith(zipper: value);
   }
 
-  /// get zipper
-  bool getZipper() {
-    return state.zipper;
-  }
-
   /// set quantity
-  void setQuantity(int value) {
+  void setQuantity(String value) {
     state = state.copyWith(quanntity: value);
   }
 
-  /// get quantity
-  int getQuantity() {
-    return state.quanntity;
-  }
-
   /// set additional cost
-  void setAdditionalCost(double value) {
+  void setAdditionalCost(String value) {
     state = state.copyWith(additioonalCost: value);
-  }
-
-  /// get additional cost
-  double getAdditionalCost() {
-    return state.additioonalCost;
   }
 
   /// set delivery type
@@ -149,38 +95,18 @@ class NonwovanBag extends _$NonwovanBag {
     state = state.copyWith(deliveryType: value);
   }
 
-  /// get delivery type
-  String getDeliveryType() {
-    return state.deliveryType;
-  }
-
   /// set home delivery cost
-  void setHomeDeliveryCost(double value) {
+  void setHomeDeliveryCost(String value) {
     state = state.copyWith(homeDeliveryCost: value);
   }
 
-  /// get home delivery cost
-  double getHomeDeliveryCost() {
-    return state.homeDeliveryCost;
-  }
-
   /// set profit
-  void setProfit(double value) {
+  void setProfit(String value) {
     state = state.copyWith(profit: value);
   }
 
-  /// get profit
-  double getProfit() {
-    return state.profit;
-  }
-
   /// set unit price
-  void setUnitPrice(double value) {
+  void setUnitPrice(String value) {
     state = state.copyWith(unitPrice: value);
-  }
-
-  /// get unit price
-  double getUnitPrice() {
-    return state.unitPrice;
   }
 }
