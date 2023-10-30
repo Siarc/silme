@@ -11,8 +11,8 @@ class NonwovenBagTypeDropdown extends ConsumerWidget {
   final List<String> _nonwovanBagTypeList = [
     'Handle Bag',
     'D Cut Bag',
-    'Auto Box Handle Bag',
-    'Auto Box D Cut Bag',
+    'Autobox Handle Bag',
+    'Autobox D Cut Bag',
     'Sewing Bag',
   ];
 

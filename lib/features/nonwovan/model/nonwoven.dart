@@ -13,8 +13,8 @@ class Nonwovan {
   String gsm;
   String gusset;
   String printColor;
-  bool gussetPrint;
-  bool zipper;
+  String gussetPrint;
+  String zipper;
   String quanntity;
   String additioonalCost;
   String deliveryType;
@@ -47,8 +47,8 @@ class Nonwovan {
     String? gsm,
     String? gusset,
     String? printColor,
-    bool? gussetPrint,
-    bool? zipper,
+    String? gussetPrint,
+    String? zipper,
     String? quanntity,
     String? additioonalCost,
     String? deliveryType,

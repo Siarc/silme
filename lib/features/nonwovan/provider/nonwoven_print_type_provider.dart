@@ -28,7 +28,7 @@ class NonwovenPrintTypeValue extends _$NonwovenPrintTypeValue {
       case 'Print Color':
         return 0;
       case 'One Color':
-        return 1.25;
+        return 1;
       case 'Two Color':
         return 2;
       case 'Three Color':

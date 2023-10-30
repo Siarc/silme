@@ -25,7 +25,7 @@ final nonwovenPrintTypeProvider =
 
 typedef _$NonwovenPrintType = AutoDisposeNotifier<String>;
 String _$nonwovenPrintTypeValueHash() =>
-    r'a66b6a81cbbccf7637ba8052831ce942ab8bb7b0';
+    r'f4c33ebcaa22e00aca537656f7a84f5550928349';
 
 /// Value of the nonwoven print color
 ///

@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:silme/features/nonwovan/model/nonwoven.dart';
@@ -11,6 +12,7 @@ import 'package:silme/features/nonwovan/provider/nonwovan_bag_type_provider.dart
 import 'package:silme/features/nonwovan/provider/nonwoven_bag_provider.dart';
 import 'package:silme/features/nonwovan/provider/nonwoven_delivery_type_provider.dart';
 import 'package:silme/features/nonwovan/provider/nonwoven_print_type_provider.dart';
+import 'package:silme/features/nonwovan/provider/zipper_provider.dart';
 import 'package:silme/utils/local_keys.dart';
 
 part 'nonwoven_unit_price_provider.g.dart';
@@ -25,7 +27,7 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
     final nonwovenBagTypeValue = ref.watch(nonwovanBagTypeValueProvider);
     final printColorValue = ref.watch(nonwovenPrintTypeValueProvider);
     final allowGussetPrint = ref.watch(gussetPrintProvider);
-    final allowZipper = ref.watch(gussetPrintProvider);
+    final allowZipper = ref.watch(zipperProvider);
     final deliveryType = ref.watch(nonwovenDeliveryTypeProvider);
 
     final fabricPrice = double.tryParse(nonwovenBag.fabricPrice) ?? 0;
@@ -44,18 +46,46 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
       allowZipper,
     );
 
-    final nonwovenBagFabricPrice =
+    debugPrint('Rony2 fabricPrice -> $fabricPrice');
+    debugPrint('Rony2 gsm -> $gsm');
+    debugPrint('Rony2 height -> $height');
+    debugPrint('Rony2 width -> $width');
+    debugPrint('Rony2 quanntity -> $quanntity');
+    debugPrint('Rony2 homeDeliveryCost -> $homeDeliveryCost');
+    debugPrint('Rony2 additioonalCost -> $additioonalCost');
+    debugPrint('Rony2 profit -> $profit');
+    debugPrint('Rony2 fabricSqInch -> ${nonwovanUnitLocals.fabricSqInch}');
+    debugPrint('Rony2 heming -> ${nonwovanUnitLocals.heming}');
+    debugPrint('Rony2 handleFabric -> ${nonwovanUnitLocals.handleFabric}');
+    debugPrint('Rony2 runner -> ${nonwovanUnitLocals.runner}');
+    debugPrint('Rony2 gussetPrint -> ${nonwovanUnitLocals.gussetPrint}');
+    debugPrint('Rony2 piping -> ${nonwovanUnitLocals.piping}');
+    debugPrint('Rony2 zipper -> ${nonwovanUnitLocals.zipper}');
+
+    final nonwovenBagFabricPricePerUnit =
         nonwovanUnitLocals.fabricSqInch * 0.00067 * (fabricPrice / 1000) * gsm;
 
-    final wastage = fabricPrice * (2 / 100);
+    final wastage = nonwovenBagFabricPricePerUnit * (2 / 100);
 
     final blockCost = ((height - 4) * (width - 3) * 10) / quanntity;
     var deliveryCost = 0.0;
     if (deliveryType == 1) {
       deliveryCost = homeDeliveryCost / quanntity;
     }
-
-    final bagPrice = nonwovenBagFabricPrice +
+    debugPrint(
+        'Rony2 nonwovenBagFabricPricePerUnit -> ${nonwovenBagFabricPricePerUnit}');
+    debugPrint('Rony2 nonwovenBagTypeValue -> ${nonwovenBagTypeValue}');
+    debugPrint('Rony2 blockCost -> ${blockCost}');
+    debugPrint('Rony2 printColorValue -> ${printColorValue}');
+    debugPrint('Rony2 wastage -> ${wastage}');
+    debugPrint(
+        'Rony2 nonwovanUnitLocals.gussetPrint -> ${nonwovanUnitLocals.gussetPrint}');
+    debugPrint(
+        'Rony2 nonwovanUnitLocals.zipper -> ${nonwovanUnitLocals.zipper}');
+    debugPrint('Rony2 deliveryCost -> ${deliveryCost}');
+    debugPrint('Rony2 additioonalCost -> ${additioonalCost}');
+    debugPrint('Rony2 profit -> ${profit}');
+    final bagPrice = nonwovenBagFabricPricePerUnit +
         nonwovenBagTypeValue +
         blockCost +
         printColorValue +
@@ -74,7 +104,7 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
       jsonEncode(nonwovenBag.toJson()),
     );
 
-    print('Rony2 bagPrice -> $bagPrice');
+    debugPrint('Rony2 bagPrice -> $bagPrice');
 
     return bagPrice.toStringAsFixed(4);
   }
@@ -139,7 +169,7 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
 
         if (allowGussetPrint == 1) {
           nonwovenUnitLocals.gussetPrint =
-              1 + ((height - 3) * (width - 1) * 10) / quanntity;
+              1 + ((height - 3) * (gusset - 1) * 10) / quanntity;
         }
 
         nonwovenUnitLocals.piping = piping;
@@ -168,7 +198,6 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
         nonwovenUnitLocals.fabricSqInch = ((height + heming) * width * 2) +
             ((gusset + 0.75) * ((height + heming) * 2 + width)) +
             handleFabric;
-
         return nonwovenUnitLocals;
       case 'Autobox D Cut Bag':
         const heming = 2.5;

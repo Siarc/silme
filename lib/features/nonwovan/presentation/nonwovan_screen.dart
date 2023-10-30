@@ -123,6 +123,16 @@ class _NonwovanScreenState extends ConsumerState<NonwovanScreen> {
           .read(nonwovenDeliveryTypeProvider.notifier)
           .setDeliveryType(int.parse(nonwovanBag.deliveryType));
     }
+    if (nonwovanBag.gussetPrint.contains('1')) {
+      ref
+          .read(gussetPrintProvider.notifier)
+          .setGussetPrint(int.parse(nonwovanBag.gussetPrint));
+    }
+    if (nonwovanBag.zipper.contains('1')) {
+      ref
+          .read(zipperProvider.notifier)
+          .setZipper(int.parse(nonwovanBag.zipper));
+    }
   }
 
   @override

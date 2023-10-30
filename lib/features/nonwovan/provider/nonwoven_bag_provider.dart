@@ -18,8 +18,8 @@ class NonwovanBag extends _$NonwovanBag {
       gsm: '',
       gusset: '',
       printColor: '',
-      gussetPrint: false,
-      zipper: false,
+      gussetPrint: '2',
+      zipper: '2',
       quanntity: '',
       additioonalCost: '',
       deliveryType: '',
@@ -32,7 +32,6 @@ class NonwovanBag extends _$NonwovanBag {
   /// Set nonwoven bag if we already have one saved
   void setNonwovenBag(Nonwovan item) {
     state = item;
-    print('Rony2 state -> $state');
   }
 
   /// set bag type
@@ -71,12 +70,12 @@ class NonwovanBag extends _$NonwovanBag {
   }
 
   /// set gusset print
-  void setGussetPrint({bool value = false}) {
+  void setGussetPrint(String value) {
     state = state.copyWith(gussetPrint: value);
   }
 
   /// set zipper
-  void setZipper({bool value = false}) {
+  void setZipper(String value) {
     state = state.copyWith(zipper: value);
   }
 

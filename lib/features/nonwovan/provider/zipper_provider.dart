@@ -1,6 +1,7 @@
 // ignore_for_file: use_setters_to_change_properties
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:silme/features/nonwovan/provider/nonwoven_bag_provider.dart';
 
 part 'zipper_provider.g.dart';
 
@@ -14,6 +15,7 @@ class Zipper extends _$Zipper {
 
   /// Set cotton type bag
   void setZipper(int value) {
+    ref.read(nonwovanBagProvider.notifier).setZipper(value.toString());
     state = value;
   }
 }
