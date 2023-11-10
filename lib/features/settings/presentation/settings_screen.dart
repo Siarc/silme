@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:silme/utils/app_sizes.dart';
 import 'package:silme/utils/styles/theme_provider.dart';
 
 /// Settings Screen will be used to change the theme
@@ -36,14 +36,14 @@ class SettingsScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            gapH4,
+            const Gap(4),
             const Text('Theme'),
-            gapH4,
+            const Gap(4),
             SizedBox(
               height: 120,
               child: ListView.separated(
                 separatorBuilder: (_, __) {
-                  return gapW4;
+                  return const Gap(4);
                 },
                 scrollDirection: Axis.horizontal,
                 itemCount: images.length,

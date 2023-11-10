@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:silme/common/custom_filled_button.dart';
 import 'package:silme/common/custom_outlined_text_form_field.dart';
 import 'package:silme/features/Authentication/auth/auth.dart';
-import 'package:silme/utils/app_sizes.dart';
 
 /// Login Page of the application
 /// Login with firebase auth
@@ -89,7 +89,7 @@ class LoginScreen extends HookConsumerWidget {
               return null;
             },
           ),
-          gapH16,
+          const Gap(16),
           CustomOutlinedTextFormField(
             controller: passwordController,
             obscureText: true,
@@ -133,7 +133,7 @@ class LoginScreen extends HookConsumerWidget {
                       usernameController,
                       passwordController,
                     ),
-                    gapH32,
+                    const Gap(32),
                     loginButton(
                       size,
                       formKey,

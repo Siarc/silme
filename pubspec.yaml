@@ -23,6 +23,7 @@ dependencies:
   firebase_auth: ^4.10.1
   firebase_core: ^2.17.0
   json_annotation: ^4.8.1
+  gap: ^3.0.1
 
 dev_dependencies:
   flutter_test:

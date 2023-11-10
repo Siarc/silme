@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:silme/common/custom_filled_button.dart';
 import 'package:silme/features/dashboard/presentation/component/app_drawer.dart';
-import 'package:silme/utils/app_sizes.dart';
 
 /// Landing Page of the application
 class DashboardScreen extends ConsumerWidget {
@@ -37,7 +37,7 @@ class DashboardScreen extends ConsumerWidget {
               child: Column(
                 children: <Widget>[
                   welcomeMessage(context),
-                  gapH32,
+                  const Gap(32),
                   differentBagTypes(context, size),
                 ],
               ),
@@ -61,7 +61,7 @@ class DashboardScreen extends ConsumerWidget {
             },
           ),
         ),
-        gapH8,
+        const Gap(8),
         SizedBox(
           width: size.width * 0.7,
           child: CustomFilledButton(
@@ -71,7 +71,7 @@ class DashboardScreen extends ConsumerWidget {
             },
           ),
         ),
-        gapH8,
+        const Gap(8),
         SizedBox(
           width: size.width * 0.7,
           child: CustomFilledButton(

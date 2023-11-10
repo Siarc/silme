@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:silme/common/custom_outlined_text_form_field.dart';
@@ -15,7 +16,6 @@ import 'package:silme/features/nonwovan/provider/nonwoven_delivery_type_provider
 import 'package:silme/features/nonwovan/provider/nonwoven_print_type_provider.dart';
 import 'package:silme/features/nonwovan/provider/nonwoven_unit_price_provider.dart';
 import 'package:silme/features/nonwovan/provider/zipper_provider.dart';
-import 'package:silme/utils/app_sizes.dart';
 import 'package:silme/utils/local_keys.dart';
 
 /// Returns the column containing the fabric details.
@@ -185,27 +185,27 @@ class _NonwovanScreenState extends ConsumerState<NonwovanScreen> {
     return Column(
       children: [
         NonwovenBagTypeDropdown(),
-        gapH12,
+        const Gap(12),
         fabricPrice(ref),
-        gapH8,
+        const Gap(8),
         bagSize(ref),
-        gapH8,
+        const Gap(8),
         bagGSMGusset(ref),
-        gapH8,
+        const Gap(8),
         PrintColorDropdown(),
-        gapH12,
+        const Gap(12),
         if (showGussetZipper == 'Sewing Bag')
           bagGussetPrintAndZipper(ref, context),
         bagQuantityAdditionalCost(ref),
-        gapH8,
+        const Gap(8),
         bagProfit(ref),
-        gapH8,
+        const Gap(8),
         DeliveryContianer(
           homeDeliveryController: homeDeliveryController,
         ),
-        gapH12,
+        const Gap(12),
         unitPrice(ref, context),
-        gapH8,
+        const Gap(8),
       ],
     );
   }
@@ -215,9 +215,9 @@ class _NonwovanScreenState extends ConsumerState<NonwovanScreen> {
     return Column(
       children: [
         bagGussetPrint(ref, context),
-        gapH8,
+        const Gap(8),
         bagZipper(ref, context),
-        gapH8,
+        const Gap(8),
       ],
     );
   }
@@ -256,7 +256,7 @@ class _NonwovanScreenState extends ConsumerState<NonwovanScreen> {
             },
           ),
         ),
-        gapW8,
+        const Gap(8),
         Expanded(
           child: CustomOutlinedTextFormField(
             controller: gussetController,
@@ -293,7 +293,7 @@ class _NonwovanScreenState extends ConsumerState<NonwovanScreen> {
             },
           ),
         ),
-        gapW8,
+        const Gap(8),
         Expanded(
           child: CustomOutlinedTextFormField(
             controller: widthController,
@@ -429,7 +429,7 @@ class _NonwovanScreenState extends ConsumerState<NonwovanScreen> {
             },
           ),
         ),
-        gapW8,
+        const Gap(8),
         Expanded(
           child: CustomOutlinedTextFormField(
             controller: additionaCostController,
