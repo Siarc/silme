@@ -9,13 +9,13 @@ import 'package:silme/features/nonwoven/model/nonwoven.dart';
 import 'package:silme/features/nonwoven/presentation/component/delivery_container.dart';
 import 'package:silme/features/nonwoven/presentation/component/nonwoven_bag_type_dropdown.dart';
 import 'package:silme/features/nonwoven/presentation/component/print_color_dropdown.dart';
-import 'package:silme/features/nonwoven/provider/gusset_print_provider.dart';
+import 'package:silme/features/nonwoven/provider/nonwoven_gusset_print_provider.dart';
 import 'package:silme/features/nonwoven/provider/nonwovan_bag_type_provider.dart';
 import 'package:silme/features/nonwoven/provider/nonwoven_bag_provider.dart';
 import 'package:silme/features/nonwoven/provider/nonwoven_delivery_type_provider.dart';
 import 'package:silme/features/nonwoven/provider/nonwoven_print_type_provider.dart';
 import 'package:silme/features/nonwoven/provider/nonwoven_unit_price_provider.dart';
-import 'package:silme/features/nonwoven/provider/zipper_provider.dart';
+import 'package:silme/features/nonwoven/provider/nonwoven_zipper_provider.dart';
 import 'package:silme/utils/local_keys.dart';
 
 /// This file contains the NonwovanScreen widget which is responsible for
@@ -137,12 +137,12 @@ class _NonwovenScreenState extends ConsumerState<NonwovenScreen> {
     }
     if (nonwovanBag.gussetPrint.contains('1')) {
       ref
-          .read(gussetPrintProvider.notifier)
+          .read(nonwovenGussetPrintProvider.notifier)
           .setGussetPrint(int.parse(nonwovanBag.gussetPrint));
     }
     if (nonwovanBag.zipper.contains('1')) {
       ref
-          .read(zipperProvider.notifier)
+          .read(nonwovenZipperProvider.notifier)
           .setZipper(int.parse(nonwovanBag.zipper));
     }
   }
@@ -326,7 +326,7 @@ class _NonwovenScreenState extends ConsumerState<NonwovenScreen> {
 
   /// Bag Gusset Print (Yes or No)
   Row bagGussetPrint(WidgetRef ref, BuildContext context) {
-    final selectedValue = ref.watch(gussetPrintProvider);
+    final selectedValue = ref.watch(nonwovenGussetPrintProvider);
     return Row(
       children: [
         Text(
@@ -345,7 +345,9 @@ class _NonwovenScreenState extends ConsumerState<NonwovenScreen> {
                 groupValue: selectedValue,
                 title: const Text('Yes'),
                 onChanged: (val) {
-                  ref.read(gussetPrintProvider.notifier).setGussetPrint(val!);
+                  ref
+                      .read(nonwovenGussetPrintProvider.notifier)
+                      .setGussetPrint(val!);
                 },
                 activeColor: Colors.green[700],
                 selected: selectedValue == 1,
@@ -361,7 +363,9 @@ class _NonwovenScreenState extends ConsumerState<NonwovenScreen> {
                 groupValue: selectedValue,
                 title: const Text('No'),
                 onChanged: (val) {
-                  ref.read(gussetPrintProvider.notifier).setGussetPrint(val!);
+                  ref
+                      .read(nonwovenGussetPrintProvider.notifier)
+                      .setGussetPrint(val!);
                 },
                 activeColor: Colors.green[700],
                 selected: selectedValue == 2,
@@ -375,7 +379,7 @@ class _NonwovenScreenState extends ConsumerState<NonwovenScreen> {
 
   /// Bag Zipper (Yes or No)
   Row bagZipper(WidgetRef ref, BuildContext context) {
-    final selectedValue = ref.watch(zipperProvider);
+    final selectedValue = ref.watch(nonwovenZipperProvider);
     return Row(
       children: [
         Text(
@@ -394,7 +398,7 @@ class _NonwovenScreenState extends ConsumerState<NonwovenScreen> {
                 groupValue: selectedValue,
                 title: const Text('Yes'),
                 onChanged: (val) {
-                  ref.read(zipperProvider.notifier).setZipper(val!);
+                  ref.read(nonwovenZipperProvider.notifier).setZipper(val!);
                 },
                 activeColor: Colors.green[700],
                 selected: selectedValue == 1,
@@ -410,7 +414,7 @@ class _NonwovenScreenState extends ConsumerState<NonwovenScreen> {
                 groupValue: selectedValue,
                 title: const Text('No'),
                 onChanged: (val) {
-                  ref.read(zipperProvider.notifier).setZipper(val!);
+                  ref.read(nonwovenZipperProvider.notifier).setZipper(val!);
                 },
                 activeColor: Colors.green[700],
                 selected: selectedValue == 2,

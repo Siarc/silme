@@ -1,28 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'nonwoven_unit_price_provider.dart';
+part of 'jute_unit_price_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$nonwovenUnitPriceHash() => r'82d407d6ee8d9cf4caa58dcbdbea234be3361617';
+String _$juteUnitPriceHash() => r'7b798e4d5e34d0e378d64c0e46cd65a51af48f4e';
 
-/// Selected nonwoven type bag
-///
-/// Copied from [NonwovenUnitPrice].
-@ProviderFor(NonwovenUnitPrice)
-final nonwovenUnitPriceProvider =
-    AutoDisposeAsyncNotifierProvider<NonwovenUnitPrice, String>.internal(
-  NonwovenUnitPrice.new,
-  name: r'nonwovenUnitPriceProvider',
+/// See also [JuteUnitPrice].
+@ProviderFor(JuteUnitPrice)
+final juteUnitPriceProvider =
+    AutoDisposeAsyncNotifierProvider<JuteUnitPrice, String>.internal(
+  JuteUnitPrice.new,
+  name: r'juteUnitPriceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$nonwovenUnitPriceHash,
+      : _$juteUnitPriceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$NonwovenUnitPrice = AutoDisposeAsyncNotifier<String>;
+typedef _$JuteUnitPrice = AutoDisposeAsyncNotifier<String>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'gusset_print_provider.dart';
+part of 'jute_zipper_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$gussetPrintHash() => r'0fb50a1978fb90ce7f8a3b3815e102fb69ede30b';
+String _$juteZipperHash() => r'a05df7cbb8283a6cd89521df73131a8b07105753';
 
 /// Selected cotton type bag
 ///
-/// Copied from [GussetPrint].
-@ProviderFor(GussetPrint)
-final gussetPrintProvider =
-    AutoDisposeNotifierProvider<GussetPrint, int>.internal(
-  GussetPrint.new,
-  name: r'gussetPrintProvider',
+/// Copied from [JuteZipper].
+@ProviderFor(JuteZipper)
+final juteZipperProvider =
+    AutoDisposeNotifierProvider<JuteZipper, int>.internal(
+  JuteZipper.new,
+  name: r'juteZipperProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$gussetPrintHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$juteZipperHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$GussetPrint = AutoDisposeNotifier<int>;
+typedef _$JuteZipper = AutoDisposeNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

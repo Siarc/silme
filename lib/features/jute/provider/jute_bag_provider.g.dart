@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'zipper_provider.dart';
+part of 'jute_bag_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$zipperHash() => r'935f11fe7c5f38d736781a01e3a000b95c6f479e';
+String _$juteBagHash() => r'5799c8a67080b503521d7a125f11b63115dda65d';
 
-/// Selected cotton type bag
+/// Selected nonwoven bag
 ///
-/// Copied from [Zipper].
-@ProviderFor(Zipper)
-final zipperProvider = AutoDisposeNotifierProvider<Zipper, int>.internal(
-  Zipper.new,
-  name: r'zipperProvider',
+/// Copied from [JuteBag].
+@ProviderFor(JuteBag)
+final juteBagProvider = AutoDisposeNotifierProvider<JuteBag, Jute>.internal(
+  JuteBag.new,
+  name: r'juteBagProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$zipperHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$juteBagHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$Zipper = AutoDisposeNotifier<int>;
+typedef _$JuteBag = AutoDisposeNotifier<Jute>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

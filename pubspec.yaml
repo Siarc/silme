@@ -18,7 +18,6 @@ dependencies:
   riverpod_annotation: ^2.1.4
   go_router: ^11.1.2
   shared_preferences: ^2.2.1
-  very_good_analysis: ^5.1.0
   flutter_native_splash: ^2.3.3
   firebase_auth: ^4.10.1
   firebase_core: ^2.17.0

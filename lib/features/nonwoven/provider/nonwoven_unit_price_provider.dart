@@ -7,17 +7,17 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:silme/features/nonwoven/model/nonwoven.dart';
 import 'package:silme/features/nonwoven/model/nonwoven_unit_locals.dart';
-import 'package:silme/features/nonwoven/provider/gusset_print_provider.dart';
+import 'package:silme/features/nonwoven/provider/nonwoven_gusset_print_provider.dart';
 import 'package:silme/features/nonwoven/provider/nonwovan_bag_type_provider.dart';
 import 'package:silme/features/nonwoven/provider/nonwoven_bag_provider.dart';
 import 'package:silme/features/nonwoven/provider/nonwoven_delivery_type_provider.dart';
 import 'package:silme/features/nonwoven/provider/nonwoven_print_type_provider.dart';
-import 'package:silme/features/nonwoven/provider/zipper_provider.dart';
+import 'package:silme/features/nonwoven/provider/nonwoven_zipper_provider.dart';
 import 'package:silme/utils/local_keys.dart';
 
 part 'nonwoven_unit_price_provider.g.dart';
 
-/// Selected cotton type bag
+/// Selected nonwoven type bag
 @riverpod
 class NonwovenUnitPrice extends _$NonwovenUnitPrice {
   @override
@@ -26,8 +26,8 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
     final nonwovenBagType = ref.watch(nonwovanBagTypeProvider);
     final nonwovenBagTypeValue = ref.watch(nonwovanBagTypeValueProvider);
     final printColorValue = ref.watch(nonwovenPrintTypeValueProvider);
-    final allowGussetPrint = ref.watch(gussetPrintProvider);
-    final allowZipper = ref.watch(zipperProvider);
+    final allowGussetPrint = ref.watch(nonwovenGussetPrintProvider);
+    final allowZipper = ref.watch(nonwovenZipperProvider);
     final deliveryType = ref.watch(nonwovenDeliveryTypeProvider);
 
     final fabricPrice = double.tryParse(nonwovenBag.fabricPrice) ?? 0;

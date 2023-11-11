@@ -3,19 +3,19 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:silme/features/nonwoven/provider/nonwoven_bag_provider.dart';
 
-part 'gusset_print_provider.g.dart';
+part 'nonwoven_zipper_provider.g.dart';
 
 /// Selected cotton type bag
 @riverpod
-class GussetPrint extends _$GussetPrint {
+class NonwovenZipper extends _$NonwovenZipper {
   @override
   int build() {
     return 2;
   }
 
   /// Set cotton type bag
-  void setGussetPrint(int value) {
-    ref.read(nonwovanBagProvider.notifier).setGussetPrint(value.toString());
+  void setZipper(int value) {
+    ref.read(nonwovanBagProvider.notifier).setZipper(value.toString());
     state = value;
   }
 }

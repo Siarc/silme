@@ -3,4 +3,5 @@
 class LocalKeys {
   static const currentThemeNumber = 'CurrentThemeNumber';
   static const nonwovenModelState = 'NonwovenModelState';
+  static const juteModelState = 'JuteModelState';
 }
