@@ -57,7 +57,7 @@ class DashboardScreen extends ConsumerWidget {
           child: CustomFilledButton(
             label: 'Non-woven Bag',
             onPressed: () {
-              context.go('/dashboard/nonwovan');
+              context.go('/dashboard/nonwoven');
             },
           ),
         ),

@@ -5,28 +5,40 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:silme/common/custom_outlined_text_form_field.dart';
-import 'package:silme/features/nonwovan/model/nonwoven.dart';
-import 'package:silme/features/nonwovan/presentation/component/delivery_container.dart';
-import 'package:silme/features/nonwovan/presentation/component/nonwoven_bag_type_dropdown.dart';
-import 'package:silme/features/nonwovan/presentation/component/print_color_dropdown.dart';
-import 'package:silme/features/nonwovan/provider/gusset_print_provider.dart';
-import 'package:silme/features/nonwovan/provider/nonwovan_bag_type_provider.dart';
-import 'package:silme/features/nonwovan/provider/nonwoven_bag_provider.dart';
-import 'package:silme/features/nonwovan/provider/nonwoven_delivery_type_provider.dart';
-import 'package:silme/features/nonwovan/provider/nonwoven_print_type_provider.dart';
-import 'package:silme/features/nonwovan/provider/nonwoven_unit_price_provider.dart';
-import 'package:silme/features/nonwovan/provider/zipper_provider.dart';
+import 'package:silme/features/nonwoven/model/nonwoven.dart';
+import 'package:silme/features/nonwoven/presentation/component/delivery_container.dart';
+import 'package:silme/features/nonwoven/presentation/component/nonwoven_bag_type_dropdown.dart';
+import 'package:silme/features/nonwoven/presentation/component/print_color_dropdown.dart';
+import 'package:silme/features/nonwoven/provider/gusset_print_provider.dart';
+import 'package:silme/features/nonwoven/provider/nonwovan_bag_type_provider.dart';
+import 'package:silme/features/nonwoven/provider/nonwoven_bag_provider.dart';
+import 'package:silme/features/nonwoven/provider/nonwoven_delivery_type_provider.dart';
+import 'package:silme/features/nonwoven/provider/nonwoven_print_type_provider.dart';
+import 'package:silme/features/nonwoven/provider/nonwoven_unit_price_provider.dart';
+import 'package:silme/features/nonwoven/provider/zipper_provider.dart';
 import 'package:silme/utils/local_keys.dart';
 
-/// Returns the column containing the fabric details.
-class NonwovanScreen extends ConsumerStatefulWidget {
+/// This file contains the NonwovanScreen widget which is responsible for
+/// rendering the UI for the Non-wovan Bag feature.
+///
+/// It also contains several helper methods for building the UI components such
+/// as fabricDetails, fabricPrice, bagSize, bagGSMGusset, bagGussetPrint,
+/// bagZipper, etc.
+///
+/// The widget uses the ConsumerStatefulWidget and ConsumerState classes from
+/// the flutter_riverpod package to manage the state of the NonwovanScreen
+/// widget.
+///
+/// It also uses several TextEditingController instances to manage the input
+/// fields and SharedPreferences to persist the state of the widget.
+class NonwovenScreen extends ConsumerStatefulWidget {
   /// Default Constructor
-  const NonwovanScreen({super.key});
+  const NonwovenScreen({super.key});
   @override
-  ConsumerState<NonwovanScreen> createState() => _NonwovanScreenState();
+  ConsumerState<NonwovenScreen> createState() => _NonwovenScreenState();
 }
 
-class _NonwovanScreenState extends ConsumerState<NonwovanScreen> {
+class _NonwovenScreenState extends ConsumerState<NonwovenScreen> {
   final fabricPriceController = TextEditingController();
   final heightController = TextEditingController();
   final widthController = TextEditingController();

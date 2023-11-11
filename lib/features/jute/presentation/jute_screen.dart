@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 ///
-class JuteScreen extends ConsumerWidget {
+class JuteScreen extends ConsumerStatefulWidget {
   /// Default Constructor
   const JuteScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<JuteScreen> createState() => _JuteScreenState();
+}
+
+class _JuteScreenState extends ConsumerState<JuteScreen> {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [

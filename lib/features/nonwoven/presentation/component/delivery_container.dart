@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:silme/common/custom_outlined_text_form_field.dart';
-import 'package:silme/features/nonwovan/provider/nonwoven_bag_provider.dart';
-import 'package:silme/features/nonwovan/provider/nonwoven_delivery_type_provider.dart';
+import 'package:silme/features/nonwoven/provider/nonwoven_bag_provider.dart';
+import 'package:silme/features/nonwoven/provider/nonwoven_delivery_type_provider.dart';
 
 /// Delivery Container
 class DeliveryContianer extends ConsumerStatefulWidget {

@@ -4,7 +4,7 @@ import 'package:silme/features/Authentication/presentation/login_screen.dart';
 import 'package:silme/features/cotton/presentation/cotton_screen.dart';
 import 'package:silme/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:silme/features/jute/presentation/jute_screen.dart';
-import 'package:silme/features/nonwovan/presentation/nonwovan_screen.dart';
+import 'package:silme/features/nonwoven/presentation/nonwoven_screen.dart';
 import 'package:silme/features/settings/presentation/settings_screen.dart';
 
 /// The route configuration.
@@ -33,9 +33,9 @@ GoRouter getGoRouter() {
                 },
               ),
               GoRoute(
-                path: 'nonwovan',
+                path: 'nonwoven',
                 builder: (BuildContext context, GoRouterState state) {
-                  return const NonwovanScreen();
+                  return const NonwovenScreen();
                 },
               ),
               GoRoute(

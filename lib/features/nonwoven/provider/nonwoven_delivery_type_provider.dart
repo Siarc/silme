@@ -1,7 +1,7 @@
 // ignore_for_file: use_setters_to_change_properties
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:silme/features/nonwovan/provider/nonwoven_bag_provider.dart';
+import 'package:silme/features/nonwoven/provider/nonwoven_bag_provider.dart';
 
 part 'nonwoven_delivery_type_provider.g.dart';
 

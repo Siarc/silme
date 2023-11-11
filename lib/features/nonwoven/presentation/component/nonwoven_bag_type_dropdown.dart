@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:silme/features/nonwovan/provider/nonwovan_bag_type_provider.dart';
-import 'package:silme/features/nonwovan/provider/nonwoven_bag_provider.dart';
+import 'package:silme/features/nonwoven/provider/nonwovan_bag_type_provider.dart';
+import 'package:silme/features/nonwoven/provider/nonwoven_bag_provider.dart';
 
 /// Custom dropdown widget for nonwoven bag type bags
 class NonwovenBagTypeDropdown extends ConsumerWidget {
