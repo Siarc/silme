@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:silme/features/nonwoven/model/nonwoven.dart';
@@ -17,7 +16,10 @@ import 'package:silme/utils/local_keys.dart';
 
 part 'nonwoven_unit_price_provider.g.dart';
 
-/// Selected nonwoven type bag
+/// A Riverpod provider that calculates the unit price of a nonwoven bag.
+///
+/// This provider uses the details of the nonwoven bag and its type to calculate the unit price.
+/// It also saves the current state of the nonwoven bag to shared preferences.
 @riverpod
 class NonwovenUnitPrice extends _$NonwovenUnitPrice {
   @override
@@ -38,6 +40,7 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
     final homeDeliveryCost = double.tryParse(nonwovenBag.homeDeliveryCost) ?? 0;
     final additioonalCost = double.tryParse(nonwovenBag.additioonalCost) ?? 0;
     final profit = double.tryParse(nonwovenBag.profit) ?? 0;
+    var deliveryCost = 0.0;
 
     final nonwovanUnitLocals = getNonwovenUnitLocals(
       nonwovenBagType,
@@ -46,45 +49,16 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
       allowZipper,
     );
 
-    debugPrint('Rony2 fabricPrice -> $fabricPrice');
-    debugPrint('Rony2 gsm -> $gsm');
-    debugPrint('Rony2 height -> $height');
-    debugPrint('Rony2 width -> $width');
-    debugPrint('Rony2 quanntity -> $quanntity');
-    debugPrint('Rony2 homeDeliveryCost -> $homeDeliveryCost');
-    debugPrint('Rony2 additioonalCost -> $additioonalCost');
-    debugPrint('Rony2 profit -> $profit');
-    debugPrint('Rony2 fabricSqInch -> ${nonwovanUnitLocals.fabricSqInch}');
-    debugPrint('Rony2 heming -> ${nonwovanUnitLocals.heming}');
-    debugPrint('Rony2 handleFabric -> ${nonwovanUnitLocals.handleFabric}');
-    debugPrint('Rony2 runner -> ${nonwovanUnitLocals.runner}');
-    debugPrint('Rony2 gussetPrint -> ${nonwovanUnitLocals.gussetPrint}');
-    debugPrint('Rony2 piping -> ${nonwovanUnitLocals.piping}');
-    debugPrint('Rony2 zipper -> ${nonwovanUnitLocals.zipper}');
-
     final nonwovenBagFabricPricePerUnit =
         nonwovanUnitLocals.fabricSqInch * 0.00067 * (fabricPrice / 1000) * gsm;
 
     final wastage = nonwovenBagFabricPricePerUnit * (2 / 100);
 
     final blockCost = ((height - 4) * (width - 3) * 10) / quanntity;
-    var deliveryCost = 0.0;
     if (deliveryType == 1) {
       deliveryCost = homeDeliveryCost / quanntity;
     }
-    debugPrint(
-        'Rony2 nonwovenBagFabricPricePerUnit -> ${nonwovenBagFabricPricePerUnit}');
-    debugPrint('Rony2 nonwovenBagTypeValue -> ${nonwovenBagTypeValue}');
-    debugPrint('Rony2 blockCost -> ${blockCost}');
-    debugPrint('Rony2 printColorValue -> ${printColorValue}');
-    debugPrint('Rony2 wastage -> ${wastage}');
-    debugPrint(
-        'Rony2 nonwovanUnitLocals.gussetPrint -> ${nonwovanUnitLocals.gussetPrint}');
-    debugPrint(
-        'Rony2 nonwovanUnitLocals.zipper -> ${nonwovanUnitLocals.zipper}');
-    debugPrint('Rony2 deliveryCost -> ${deliveryCost}');
-    debugPrint('Rony2 additioonalCost -> ${additioonalCost}');
-    debugPrint('Rony2 profit -> ${profit}');
+
     final bagPrice = nonwovenBagFabricPricePerUnit +
         nonwovenBagTypeValue +
         blockCost +
@@ -96,20 +70,23 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
         additioonalCost +
         profit;
 
-    //ref.read(nonwovanBagProvider.notifier).setUnitPrice(bagPrice);
-
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(
       LocalKeys.nonwovenModelState,
       jsonEncode(nonwovenBag.toJson()),
     );
 
-    debugPrint('Rony2 bagPrice -> $bagPrice');
-
     return bagPrice.toStringAsFixed(4);
   }
 
-  /// Get NonwovenUnitLocals value based on the bag type
+  /// Calculates the nonwoven unit locals based on the given parameters.
+  ///
+  /// [nonwovenBagType] specifies the type of nonwoven bag.
+  /// [nonwovenBag] contains the details of the nonwoven bag.
+  /// [allowGussetPrint] specifies whether gusset print is allowed or not.
+  /// [allowZipper] specifies whether zipper is allowed or not.
+  ///
+  /// Returns a [NonwovenUnitLocals] object containing the calculated values.
   NonwovenUnitLocals getNonwovenUnitLocals(
     String nonwovenBagType,
     Nonwovan nonwovenBag,
@@ -213,7 +190,13 @@ class NonwovenUnitPrice extends _$NonwovenUnitPrice {
     }
   }
 
-  /// Get handle Fabric value based on the bag type
+  /// Determines the handle price of a nonwoven bag based on its type.
+  /// Returns an integer representing the handle price.
+  /// If the nonwovenBagType is not recognized, returns 0.
+  ///
+  /// [nonwovenBagType] A string representing the type of nonwoven bag.
+  ///
+  /// Returns an integer representing the handle price.
   int handleFabricBasedOnBagType(String nonwovenBagType) {
     switch (nonwovenBagType) {
       case 'Select Bag Type':

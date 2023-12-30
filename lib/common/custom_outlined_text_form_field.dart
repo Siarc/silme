@@ -79,6 +79,11 @@ class CustomOutlinedTextFormField extends ConsumerWidget {
         floatingLabelAlignment: FloatingLabelAlignment.center,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: label,
+        hintText: hint,
+        hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+              color: hintColor ??
+                  Theme.of(context).colorScheme.onBackground.withOpacity(0.5),
+            ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 10,
         ),

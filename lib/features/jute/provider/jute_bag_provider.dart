@@ -1,7 +1,6 @@
 // ignore_for_file: use_setters_to_change_properties
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:silme/features/jute/model/jute.dart';
-import 'package:silme/features/nonwoven/model/nonwoven.dart';
 
 part 'jute_bag_provider.g.dart';
 
@@ -12,19 +11,21 @@ class JuteBag extends _$JuteBag {
   @override
   Jute build() {
     return Jute(
-      fabricPrice: '',
+      bodyFabricPrice: '',
+      gussetFabricPrice: '',
+      usableBodyFabric: '',
+      usableGussetFabric: '',
       height: '',
       width: '',
-      gsm: '',
+      handle: '',
       gusset: '',
-      printColor: '',
-      gussetPrint: '2',
+      print: '',
+      accessories: '',
+      quantity: '',
+      profit: '',
       zipper: '2',
-      quanntity: '',
-      additioonalCost: '',
       deliveryType: '',
       homeDeliveryCost: '',
-      profit: '',
       unitPrice: '',
     );
   }
@@ -34,9 +35,24 @@ class JuteBag extends _$JuteBag {
     state = item;
   }
 
-  /// set fabric price
-  void setFabricPrice(String value) {
-    state = state.copyWith(fabricPrice: value);
+  /// set body fabric price
+  void setBodyFabricPrice(String value) {
+    state = state.copyWith(bodyFabricPrice: value);
+  }
+
+  /// set gusset fabric price
+  void setGussetFabricPrice(String value) {
+    state = state.copyWith(gussetFabricPrice: value);
+  }
+
+  /// set usable body fabric
+  void setUsableBodyFabric(String value) {
+    state = state.copyWith(usableBodyFabric: value);
+  }
+
+  /// set usable gusset fabric
+  void setUsableGussetFabric(String value) {
+    state = state.copyWith(usableGussetFabric: value);
   }
 
   /// set height
@@ -49,9 +65,9 @@ class JuteBag extends _$JuteBag {
     state = state.copyWith(width: value);
   }
 
-  /// set gsm
-  void setGsm(String value) {
-    state = state.copyWith(gsm: value);
+  /// set handle
+  void setHandle(String value) {
+    state = state.copyWith(handle: value);
   }
 
   /// set gusset
@@ -59,29 +75,29 @@ class JuteBag extends _$JuteBag {
     state = state.copyWith(gusset: value);
   }
 
-  /// set print color
-  void setPrintColor(String value) {
-    state = state.copyWith(printColor: value);
+  /// set print
+  void setPrint(String value) {
+    state = state.copyWith(print: value);
   }
 
-  /// set gusset print
-  void setGussetPrint(String value) {
-    state = state.copyWith(gussetPrint: value);
+  /// set accessories
+  void setAccessories(String value) {
+    state = state.copyWith(accessories: value);
+  }
+
+  /// set quantity
+  void setQuantity(String value) {
+    state = state.copyWith(quantity: value);
+  }
+
+  /// set profit
+  void setProfit(String value) {
+    state = state.copyWith(profit: value);
   }
 
   /// set zipper
   void setZipper(String value) {
     state = state.copyWith(zipper: value);
-  }
-
-  /// set quantity
-  void setQuantity(String value) {
-    state = state.copyWith(quanntity: value);
-  }
-
-  /// set additional cost
-  void setAdditionalCost(String value) {
-    state = state.copyWith(additioonalCost: value);
   }
 
   /// set delivery type
@@ -92,11 +108,6 @@ class JuteBag extends _$JuteBag {
   /// set home delivery cost
   void setHomeDeliveryCost(String value) {
     state = state.copyWith(homeDeliveryCost: value);
-  }
-
-  /// set profit
-  void setProfit(String value) {
-    state = state.copyWith(profit: value);
   }
 
   /// set unit price

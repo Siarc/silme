@@ -5,18 +5,21 @@ import 'package:silme/features/nonwoven/provider/nonwoven_bag_provider.dart';
 import 'package:silme/features/nonwoven/provider/nonwoven_delivery_type_provider.dart';
 
 /// Delivery Container
-class DeliveryContianer extends ConsumerStatefulWidget {
+class NonwovenDeliveryContianer extends ConsumerStatefulWidget {
   /// Default constructor
-  const DeliveryContianer({required this.homeDeliveryController, super.key});
+  const NonwovenDeliveryContianer(
+      {required this.homeDeliveryController, super.key});
 
   /// Home delivery controller
   final TextEditingController homeDeliveryController;
 
   @override
-  ConsumerState<DeliveryContianer> createState() => _DeliveryContianerState();
+  ConsumerState<NonwovenDeliveryContianer> createState() =>
+      _NonwovenDeliveryContianerState();
 }
 
-class _DeliveryContianerState extends ConsumerState<DeliveryContianer> {
+class _NonwovenDeliveryContianerState
+    extends ConsumerState<NonwovenDeliveryContianer> {
   @override
   Widget build(BuildContext context) {
     final selectedValue = ref.watch(nonwovenDeliveryTypeProvider);

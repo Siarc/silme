@@ -6,7 +6,7 @@ part of 'jute_unit_price_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$juteUnitPriceHash() => r'7b798e4d5e34d0e378d64c0e46cd65a51af48f4e';
+String _$juteUnitPriceHash() => r'a9c7c0dd0b309d0849057ca4a40c64b6a6efda44';
 
 /// See also [JuteUnitPrice].
 @ProviderFor(JuteUnitPrice)

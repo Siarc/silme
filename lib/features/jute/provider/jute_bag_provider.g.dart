@@ -6,7 +6,7 @@ part of 'jute_bag_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$juteBagHash() => r'5799c8a67080b503521d7a125f11b63115dda65d';
+String _$juteBagHash() => r'7f65351fe10bca677696b94d419acccde425f230';
 
 /// Selected nonwoven bag
 ///

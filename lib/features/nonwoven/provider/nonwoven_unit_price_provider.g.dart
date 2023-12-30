@@ -6,9 +6,12 @@ part of 'nonwoven_unit_price_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$nonwovenUnitPriceHash() => r'82d407d6ee8d9cf4caa58dcbdbea234be3361617';
+String _$nonwovenUnitPriceHash() => r'9158b403efa5f126412bbf9dbca9ec34f2f97e68';
 
-/// Selected nonwoven type bag
+/// A Riverpod provider that calculates the unit price of a nonwoven bag.
+///
+/// This provider uses the details of the nonwoven bag and its type to calculate the unit price.
+/// It also saves the current state of the nonwoven bag to shared preferences.
 ///
 /// Copied from [NonwovenUnitPrice].
 @ProviderFor(NonwovenUnitPrice)

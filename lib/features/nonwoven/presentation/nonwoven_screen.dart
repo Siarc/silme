@@ -6,8 +6,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:silme/common/custom_outlined_text_form_field.dart';
 import 'package:silme/features/nonwoven/model/nonwoven.dart';
-import 'package:silme/features/nonwoven/presentation/component/delivery_container.dart';
 import 'package:silme/features/nonwoven/presentation/component/nonwoven_bag_type_dropdown.dart';
+import 'package:silme/features/nonwoven/presentation/component/nonwoven_delivery_container.dart';
 import 'package:silme/features/nonwoven/presentation/component/print_color_dropdown.dart';
 import 'package:silme/features/nonwoven/provider/nonwoven_gusset_print_provider.dart';
 import 'package:silme/features/nonwoven/provider/nonwovan_bag_type_provider.dart';
@@ -212,7 +212,7 @@ class _NonwovenScreenState extends ConsumerState<NonwovenScreen> {
         const Gap(8),
         bagProfit(ref),
         const Gap(8),
-        DeliveryContianer(
+        NonwovenDeliveryContianer(
           homeDeliveryController: homeDeliveryController,
         ),
         const Gap(12),

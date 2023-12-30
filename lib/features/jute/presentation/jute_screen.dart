@@ -6,15 +6,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:silme/common/custom_outlined_text_form_field.dart';
 import 'package:silme/features/jute/model/jute.dart';
+import 'package:silme/features/jute/presentation/component/jute_delivery_container.dart';
 import 'package:silme/features/jute/provider/jute_bag_provider.dart';
-import 'package:silme/features/jute/provider/jute_gusset_print_provider.dart';
+import 'package:silme/features/jute/provider/jute_delivery_type_provider.dart';
 import 'package:silme/features/jute/provider/jute_unit_price_provider.dart';
 import 'package:silme/features/jute/provider/jute_zipper_provider.dart';
-import 'package:silme/features/nonwoven/presentation/component/delivery_container.dart';
-import 'package:silme/features/nonwoven/presentation/component/print_color_dropdown.dart';
 import 'package:silme/utils/local_keys.dart';
 
-///
+/// Jute Screen
 class JuteScreen extends ConsumerStatefulWidget {
   /// Default Constructor
   const JuteScreen({super.key});
@@ -24,13 +23,17 @@ class JuteScreen extends ConsumerStatefulWidget {
 }
 
 class _JuteScreenState extends ConsumerState<JuteScreen> {
-  final fabricPriceController = TextEditingController();
+  final bodyFabricPriceController = TextEditingController();
+  final gussetFabricPriceController = TextEditingController();
+  final usablebodyFabricController = TextEditingController();
+  final usablegussetFabricController = TextEditingController();
   final heightController = TextEditingController();
   final widthController = TextEditingController();
-  final gsmController = TextEditingController();
+  final handleController = TextEditingController();
   final gussetController = TextEditingController();
+  final printController = TextEditingController();
+  final accessoriesController = TextEditingController();
   final quantityController = TextEditingController();
-  final additionaCostController = TextEditingController();
   final profitController = TextEditingController();
   final homeDeliveryController = TextEditingController();
 
@@ -42,13 +45,15 @@ class _JuteScreenState extends ConsumerState<JuteScreen> {
 
   @override
   void dispose() {
-    fabricPriceController.dispose();
+    bodyFabricPriceController.dispose();
+    gussetFabricPriceController.dispose();
     heightController.dispose();
     widthController.dispose();
-    gsmController.dispose();
+    handleController.dispose();
     gussetController.dispose();
+    printController.dispose();
+    accessoriesController.dispose();
     quantityController.dispose();
-    additionaCostController.dispose();
     profitController.dispose();
     homeDeliveryController.dispose();
     super.dispose();
@@ -78,8 +83,68 @@ class _JuteScreenState extends ConsumerState<JuteScreen> {
 
   void setInitialControllerValues() {
     final juteBag = ref.read(juteBagProvider);
-    if (juteBag.fabricPrice.isNotEmpty) {
-      fabricPriceController.text = juteBag.fabricPrice;
+    if (juteBag.bodyFabricPrice.isNotEmpty) {
+      bodyFabricPriceController.text = juteBag.bodyFabricPrice;
+    }
+
+    if (juteBag.gussetFabricPrice.isNotEmpty) {
+      gussetFabricPriceController.text = juteBag.gussetFabricPrice;
+    }
+
+    if (juteBag.usableBodyFabric.isNotEmpty) {
+      usablebodyFabricController.text = juteBag.usableBodyFabric;
+    }
+
+    if (juteBag.usableGussetFabric.isNotEmpty) {
+      usablegussetFabricController.text = juteBag.usableGussetFabric;
+    }
+
+    if (juteBag.height.isNotEmpty) {
+      heightController.text = juteBag.height;
+    }
+
+    if (juteBag.width.isNotEmpty) {
+      widthController.text = juteBag.width;
+    }
+
+    if (juteBag.handle.isNotEmpty) {
+      handleController.text = juteBag.handle;
+    }
+
+    if (juteBag.gusset.isNotEmpty) {
+      gussetController.text = juteBag.gusset;
+    }
+
+    if (juteBag.print.isNotEmpty) {
+      printController.text = juteBag.print;
+    }
+
+    if (juteBag.accessories.isNotEmpty) {
+      accessoriesController.text = juteBag.accessories;
+    }
+
+    if (juteBag.quantity.isNotEmpty) {
+      quantityController.text = juteBag.quantity;
+    }
+
+    if (juteBag.profit.isNotEmpty) {
+      profitController.text = juteBag.profit;
+    }
+
+    if (juteBag.homeDeliveryCost.isNotEmpty) {
+      homeDeliveryController.text = juteBag.homeDeliveryCost;
+    }
+
+    if (juteBag.zipper.isNotEmpty) {
+      ref
+          .read(juteZipperProvider.notifier)
+          .setZipper(int.parse(juteBag.zipper));
+    }
+
+    if (juteBag.deliveryType.contains('1')) {
+      ref
+          .read(juteDeliveryTypeProvider.notifier)
+          .setDeliveryType(int.parse(juteBag.deliveryType));
     }
   }
 
@@ -130,20 +195,21 @@ class _JuteScreenState extends ConsumerState<JuteScreen> {
   ) {
     return Column(
       children: [
-        fabricPrice(ref),
+        bagBodyfabricPriceAndGussetFabricPrice(ref),
+        const Gap(8),
+        bagUsableBodyfabricWidthAndUsableGussetFabricWidth(ref),
         const Gap(8),
         bagSize(ref),
         const Gap(8),
-        bagGSMGusset(ref),
+        bagHandleAndGusset(ref),
         const Gap(8),
-        PrintColorDropdown(),
-        const Gap(12),
-        bagGussetPrintAndZipper(ref, context),
-        bagQuantityAdditionalCost(ref),
+        bagPrintAndAccessories(ref),
         const Gap(8),
-        bagProfit(ref),
+        bagQuantityAndProfit(ref),
         const Gap(8),
-        DeliveryContianer(
+        bagZipper(ref, context),
+        const Gap(8),
+        JuteDeliveryContianer(
           homeDeliveryController: homeDeliveryController,
         ),
         const Gap(12),
@@ -153,48 +219,99 @@ class _JuteScreenState extends ConsumerState<JuteScreen> {
     );
   }
 
-  /// Bag Gusset and Zipper
-  Column bagGussetPrintAndZipper(WidgetRef ref, BuildContext context) {
-    return Column(
-      children: [
-        bagGussetPrint(ref, context),
-        const Gap(8),
-        bagZipper(ref, context),
-        const Gap(8),
-      ],
-    );
-  }
-
-  /// Fabric Price
-  Widget fabricPrice(WidgetRef ref) {
-    return CustomOutlinedTextFormField(
-      controller: fabricPriceController,
-      label: 'Fabric Price',
-      numberOnly: true,
-      onChanged: (value) {
-        if (value == '') {
-          ref.read(juteBagProvider.notifier).setFabricPrice('');
-        } else {
-          ref.read(juteBagProvider.notifier).setFabricPrice(value);
-        }
-      },
-    );
-  }
-
-  /// Bag Gusset and Print Color
-  Row bagGSMGusset(WidgetRef ref) {
+  // Bag Usable Body Fabric Width and Usable Gusset Fabric Width
+  bagUsableBodyfabricWidthAndUsableGussetFabricWidth(WidgetRef ref) {
     return Row(
       children: [
         Expanded(
           child: CustomOutlinedTextFormField(
-            controller: gsmController,
-            label: 'GSM',
+            controller: usablebodyFabricController,
+            label: 'Usable Body Fabric',
+            hint: 'cm',
             numberOnly: true,
             onChanged: (value) {
               if (value == '') {
-                ref.read(juteBagProvider.notifier).setGsm('');
+                ref.read(juteBagProvider.notifier).setUsableBodyFabric('');
               } else {
-                ref.read(juteBagProvider.notifier).setGsm(value);
+                ref.read(juteBagProvider.notifier).setUsableBodyFabric(value);
+              }
+            },
+          ),
+        ),
+        const Gap(8),
+        Expanded(
+          child: CustomOutlinedTextFormField(
+            controller: usablegussetFabricController,
+            label: 'Usable Gusset Fabric',
+            hint: 'cm',
+            numberOnly: true,
+            onChanged: (value) {
+              if (value == '') {
+                ref.read(juteBagProvider.notifier).setUsableGussetFabric('');
+              } else {
+                ref.read(juteBagProvider.notifier).setUsableGussetFabric(value);
+              }
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Bag Body Fabric Price and Gusset Fabric Price (Per Yard)
+  Widget bagBodyfabricPriceAndGussetFabricPrice(WidgetRef ref) {
+    return Row(
+      children: [
+        Expanded(
+          child: CustomOutlinedTextFormField(
+            controller: bodyFabricPriceController,
+            label: 'Body Fabric',
+            hint: 'Per Yard Price',
+            numberOnly: true,
+            onChanged: (value) {
+              if (value == '') {
+                ref.read(juteBagProvider.notifier).setBodyFabricPrice('');
+              } else {
+                ref.read(juteBagProvider.notifier).setBodyFabricPrice(value);
+              }
+            },
+          ),
+        ),
+        const Gap(8),
+        Expanded(
+          child: CustomOutlinedTextFormField(
+            controller: gussetFabricPriceController,
+            label: 'Gusset Fabric',
+            hint: 'Per Yard Price',
+            numberOnly: true,
+            onChanged: (value) {
+              if (value == '') {
+                ref.read(juteBagProvider.notifier).setGussetFabricPrice('');
+              } else {
+                ref.read(juteBagProvider.notifier).setGussetFabricPrice(value);
+              }
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Bag Handle and Gusset
+  Row bagHandleAndGusset(WidgetRef ref) {
+    return Row(
+      children: [
+        Expanded(
+          child: CustomOutlinedTextFormField(
+            controller: handleController,
+            label: 'Handle',
+            hint: 'cm',
+            numberOnly: true,
+            onChanged: (value) {
+              if (value == '') {
+                ref.read(juteBagProvider.notifier).setHandle('');
+              } else {
+                ref.read(juteBagProvider.notifier).setHandle(value);
               }
             },
           ),
@@ -203,7 +320,8 @@ class _JuteScreenState extends ConsumerState<JuteScreen> {
         Expanded(
           child: CustomOutlinedTextFormField(
             controller: gussetController,
-            label: 'Gusset',
+            label: 'Gusset Width',
+            hint: 'cm',
             numberOnly: true,
             onChanged: (value) {
               if (value == '') {
@@ -226,6 +344,7 @@ class _JuteScreenState extends ConsumerState<JuteScreen> {
           child: CustomOutlinedTextFormField(
             controller: heightController,
             label: 'Height',
+            hint: 'cm',
             numberOnly: true,
             onChanged: (value) {
               if (value == '') {
@@ -241,6 +360,7 @@ class _JuteScreenState extends ConsumerState<JuteScreen> {
           child: CustomOutlinedTextFormField(
             controller: widthController,
             label: 'Width',
+            hint: 'cm',
             numberOnly: true,
             onChanged: (value) {
               if (value == '') {
@@ -251,59 +371,6 @@ class _JuteScreenState extends ConsumerState<JuteScreen> {
             },
           ),
         ),
-      ],
-    );
-  }
-
-  /// Bag Gusset Print (Yes or No)
-  Row bagGussetPrint(WidgetRef ref, BuildContext context) {
-    final selectedValue = ref.watch(juteGussetPrintProvider);
-    return Row(
-      children: [
-        Text(
-          'Gusset Print',
-          style: Theme.of(context).textTheme.titleSmall,
-        ),
-        Row(
-          children: [
-            SizedBox(
-              width: 100,
-              height: 48,
-              child: RadioListTile(
-                contentPadding: EdgeInsets.zero,
-                value: 1,
-                visualDensity: VisualDensity.compact,
-                groupValue: selectedValue,
-                title: const Text('Yes'),
-                onChanged: (val) {
-                  ref
-                      .read(juteGussetPrintProvider.notifier)
-                      .setGussetPrint(val!);
-                },
-                activeColor: Colors.green[700],
-                selected: selectedValue == 1,
-              ),
-            ),
-            SizedBox(
-              width: 100,
-              height: 48,
-              child: RadioListTile(
-                contentPadding: EdgeInsets.zero,
-                value: 2,
-                visualDensity: VisualDensity.compact,
-                groupValue: selectedValue,
-                title: const Text('No'),
-                onChanged: (val) {
-                  ref
-                      .read(juteGussetPrintProvider.notifier)
-                      .setGussetPrint(val!);
-                },
-                activeColor: Colors.green[700],
-                selected: selectedValue == 2,
-              ),
-            ),
-          ],
-        )
       ],
     );
   }
@@ -357,21 +424,21 @@ class _JuteScreenState extends ConsumerState<JuteScreen> {
     );
   }
 
-  /// Bag Quantity
-  Widget bagQuantityAdditionalCost(WidgetRef ref) {
+  /// Bag Quantity and Additional Cost
+  Widget bagPrintAndAccessories(WidgetRef ref) {
     return Row(
       children: [
         Expanded(
           child: CustomOutlinedTextFormField(
-            controller: quantityController,
-            label: 'Quantity',
+            controller: printController,
+            label: 'Print',
+            hint: 'Price',
             numberOnly: true,
-            allowDecimal: false,
             onChanged: (value) {
               if (value == '') {
-                ref.read(juteBagProvider.notifier).setQuantity('');
+                ref.read(juteBagProvider.notifier).setPrint('');
               } else {
-                ref.read(juteBagProvider.notifier).setQuantity(value);
+                ref.read(juteBagProvider.notifier).setPrint(value);
               }
             },
           ),
@@ -379,14 +446,15 @@ class _JuteScreenState extends ConsumerState<JuteScreen> {
         const Gap(8),
         Expanded(
           child: CustomOutlinedTextFormField(
-            controller: additionaCostController,
-            label: 'Additional Cost',
+            controller: accessoriesController,
+            label: 'Accessories',
+            hint: 'Price',
             numberOnly: true,
             onChanged: (value) {
               if (value == '') {
-                ref.read(juteBagProvider.notifier).setAdditionalCost('');
+                ref.read(juteBagProvider.notifier).setAccessories('');
               } else {
-                ref.read(juteBagProvider.notifier).setAdditionalCost(value);
+                ref.read(juteBagProvider.notifier).setAccessories(value);
               }
             },
           ),
@@ -436,19 +504,43 @@ class _JuteScreenState extends ConsumerState<JuteScreen> {
     );
   }
 
-  /// Bag Profit
-  Widget bagProfit(WidgetRef ref) {
-    return CustomOutlinedTextFormField(
-      controller: profitController,
-      label: 'Profit',
-      numberOnly: true,
-      onChanged: (value) {
-        if (value == '') {
-          ref.read(juteBagProvider.notifier).setProfit('');
-        } else {
-          ref.read(juteBagProvider.notifier).setProfit(value);
-        }
-      },
+  /// Bag Quantity and Profit
+  Widget bagQuantityAndProfit(WidgetRef ref) {
+    return Row(
+      children: [
+        Expanded(
+          child: CustomOutlinedTextFormField(
+            controller: quantityController,
+            label: 'Quantity',
+            hint: 'Unit',
+            numberOnly: true,
+            allowDecimal: false,
+            onChanged: (value) {
+              if (value == '') {
+                ref.read(juteBagProvider.notifier).setQuantity('');
+              } else {
+                ref.read(juteBagProvider.notifier).setQuantity(value);
+              }
+            },
+          ),
+        ),
+        const Gap(8),
+        Expanded(
+          child: CustomOutlinedTextFormField(
+            controller: profitController,
+            label: 'Profit',
+            hint: 'Price',
+            numberOnly: true,
+            onChanged: (value) {
+              if (value == '') {
+                ref.read(juteBagProvider.notifier).setProfit('');
+              } else {
+                ref.read(juteBagProvider.notifier).setProfit(value);
+              }
+            },
+          ),
+        ),
+      ],
     );
   }
 }

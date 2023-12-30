@@ -6,67 +6,75 @@ part 'jute.g.dart';
 /// Model for nonwovan Bag
 @JsonSerializable()
 class Jute {
-  String fabricPrice;
+  String bodyFabricPrice;
+  String gussetFabricPrice;
+  String usableBodyFabric;
+  String usableGussetFabric;
   String height;
   String width;
-  String gsm;
+  String handle;
   String gusset;
-  String printColor;
-  String gussetPrint;
+  String print;
+  String accessories;
+  String quantity;
+  String profit;
   String zipper;
-  String quanntity;
-  String additioonalCost;
   String deliveryType;
   String homeDeliveryCost;
-  String profit;
   String unitPrice;
   Jute({
-    required this.fabricPrice,
+    required this.bodyFabricPrice,
+    required this.gussetFabricPrice,
+    required this.usableBodyFabric,
+    required this.usableGussetFabric,
     required this.height,
     required this.width,
-    required this.gsm,
+    required this.handle,
     required this.gusset,
-    required this.printColor,
-    required this.gussetPrint,
+    required this.print,
+    required this.accessories,
+    required this.quantity,
+    required this.profit,
     required this.zipper,
-    required this.quanntity,
-    required this.additioonalCost,
     required this.deliveryType,
     required this.homeDeliveryCost,
-    required this.profit,
     required this.unitPrice,
   });
 
   Jute copyWith({
-    String? fabricPrice,
+    String? bodyFabricPrice,
+    String? gussetFabricPrice,
+    String? usableBodyFabric,
+    String? usableGussetFabric,
     String? height,
     String? width,
-    String? gsm,
+    String? handle,
     String? gusset,
-    String? printColor,
-    String? gussetPrint,
+    String? print,
+    String? accessories,
+    String? quantity,
+    String? profit,
     String? zipper,
-    String? quanntity,
-    String? additioonalCost,
     String? deliveryType,
     String? homeDeliveryCost,
-    String? profit,
     String? unitPrice,
   }) {
     return Jute(
-      fabricPrice: fabricPrice ?? this.fabricPrice,
+      bodyFabricPrice: bodyFabricPrice ?? this.bodyFabricPrice,
+      gussetFabricPrice: gussetFabricPrice ?? this.gussetFabricPrice,
+      usableBodyFabric: usableBodyFabric ?? this.usableBodyFabric,
+      usableGussetFabric: usableGussetFabric ?? this.usableGussetFabric,
       height: height ?? this.height,
       width: width ?? this.width,
-      gsm: gsm ?? this.gsm,
+      handle: handle ?? this.handle,
       gusset: gusset ?? this.gusset,
-      printColor: printColor ?? this.printColor,
-      gussetPrint: gussetPrint ?? this.gussetPrint,
+      print: print ?? this.print,
+      accessories: accessories ?? this.accessories,
+      quantity: quantity ?? this.quantity,
+      profit: profit ?? this.profit,
       zipper: zipper ?? this.zipper,
-      quanntity: quanntity ?? this.quanntity,
-      additioonalCost: additioonalCost ?? this.additioonalCost,
       deliveryType: deliveryType ?? this.deliveryType,
       homeDeliveryCost: homeDeliveryCost ?? this.homeDeliveryCost,
-      profit: profit ?? this.profit,
       unitPrice: unitPrice ?? this.unitPrice,
     );
   }
