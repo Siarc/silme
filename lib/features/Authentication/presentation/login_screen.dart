@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,100 +9,34 @@ import 'package:silme/features/Authentication/auth/auth.dart';
 
 /// Login Page of the application
 /// Login with firebase auth
-class LoginScreen extends HookConsumerWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   /// Default Constructor
   const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  final formKey = GlobalKey<FormState>();
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  Future<String> signInWithEmailAndPassword() async {
+    try {
+      await Auth().signInWithEmailAndPassword(
+        email: usernameController.text,
+        password: passwordController.text,
+      );
+      return 'Success';
+    } on FirebaseAuthException catch (e) {
+      return e.toString();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final formKey = useMemoized(GlobalKey<FormState>.new);
-    final usernameController = useTextEditingController();
-    final passwordController = useTextEditingController();
-
-    String? errorMessage = '';
-
-    /// Sign in with email and password
-    /// ignore: unused_element
-    Future<String> signInWithEmailAndPassword() async {
-      try {
-        await Auth().signInWithEmailAndPassword(
-          email: usernameController.text,
-          password: passwordController.text,
-        );
-        return 'Success';
-      } on FirebaseAuthException catch (e) {
-        errorMessage = e.toString();
-        debugPrint('Error: $errorMessage');
-        return errorMessage!;
-      }
-    }
-
-    /// Login Button
-    SizedBox loginButton(
-      Size size,
-      GlobalKey<FormState> formKey,
-      TextEditingController usernameController,
-      TextEditingController passwordController,
-      BuildContext context,
-    ) {
-      return SizedBox(
-        width: size.width * 0.7,
-        child: CustomFilledButton(
-          label: 'Login',
-          onPressed: () {
-            // if (formKey.currentState!.validate()) {
-            //   formKey.currentState?.save();
-            //   signInWithEmailAndPassword().then((value) {
-            //     if (value == 'Success') {
-            //       context.pushReplacement('/dashboard');
-            //     } else {
-            //       ScaffoldMessenger.of(context).showSnackBar(
-            //         SnackBar(
-            //           content: Text(value),
-            //         ),
-            //       );
-            //     }
-            //   });
-            // }
-            context.pushReplacement('/dashboard');
-          },
-        ),
-      );
-    }
-
-    /// Text Fields for username and password
-    Column textFields(
-      TextEditingController usernameController,
-      TextEditingController passwordController,
-    ) {
-      return Column(
-        children: [
-          CustomOutlinedTextFormField(
-            controller: usernameController,
-            label: 'Username',
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter username';
-              }
-              return null;
-            },
-          ),
-          const Gap(16),
-          CustomOutlinedTextFormField(
-            controller: passwordController,
-            obscureText: true,
-            label: 'Password',
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter password';
-              }
-              return null;
-            },
-          ),
-        ],
-      );
-    }
 
     return Scaffold(
       body: Stack(
@@ -129,17 +62,56 @@ class LoginScreen extends HookConsumerWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    textFields(
-                      usernameController,
-                      passwordController,
+                    Column(
+                      children: [
+                        CustomOutlinedTextFormField(
+                          controller: usernameController,
+                          label: 'Username',
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter username';
+                            }
+                            return null;
+                          },
+                        ),
+                        const Gap(16),
+                        CustomOutlinedTextFormField(
+                          controller: passwordController,
+                          obscureText: true,
+                          label: 'Password',
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter password';
+                            }
+                            return null;
+                          },
+                        ),
+                      ],
                     ),
                     const Gap(32),
-                    loginButton(
-                      size,
-                      formKey,
-                      usernameController,
-                      passwordController,
-                      context,
+                    SizedBox(
+                      width: size.width * 0.7,
+                      child: CustomFilledButton(
+                        label: 'Login',
+                        onPressed: () async {
+                          if (formKey.currentState!.validate()) {
+                            formKey.currentState?.save();
+                            final result = await signInWithEmailAndPassword();
+
+                            if (!mounted) return;
+
+                            if (result == 'Success') {
+                              context.pushReplacement('/dashboard');
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(result),
+                                ),
+                              );
+                            }
+                          }
+                        },
+                      ),
                     ),
                   ],
                 ),

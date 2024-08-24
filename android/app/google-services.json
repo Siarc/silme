@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "889327114141",
-    "project_id": "silmebagcalculator",
-    "storage_bucket": "silmebagcalculator.appspot.com"
+    "project_number": "577879311159",
+    "project_id": "silme-33a84",
+    "storage_bucket": "silme-33a84.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:889327114141:android:b6bc39a444cd6b126f8174",
+        "mobilesdk_app_id": "1:577879311159:android:1f73050e3df48d1adc10b2",
         "android_client_info": {
-          "package_name": "com.example.silme"
+          "package_name": "com.taman.silme"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC_6SDrRjvRmaiAfJAJ9ndUl-VqpQaiHKA"
+          "current_key": "AIzaSyDfSAbtE1zKltRKLmh8q2uNKC2GeY-74D0"
         }
       ],
       "services": {
