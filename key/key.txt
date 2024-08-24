@@ -1,0 +1,4 @@
+storePassword=tamanroyal
+keyPassword=tamanroyal
+keyAlias=taman
+storeFile=../app/silme-keystore.jks
